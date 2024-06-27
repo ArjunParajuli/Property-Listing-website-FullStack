@@ -1,0 +1,35 @@
+.landing-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--nav-height));
+}
+
+nav{
+    width: var(--fluid-width);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+}
+
+h1{
+    margin-bottom: 1.5rem;
+    font-weight: 900;
+  }
+
+  span {
+    color: var(--primary-500);
+  }
+
+  p {
+    line-height: 2;
+    color: var(--text-secondary-color);
+    margin-bottom: 1.5rem;
+    max-width: 35em;
+  }
+
+  .land-btn{
+    background-color: var(--primary-500);
+  }

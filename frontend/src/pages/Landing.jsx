@@ -1,0 +1,45 @@
+import React from "react";
+import Logo from "../assets/images/logo.svg";
+import main from "../assets/images/main.svg"
+import { Container, Col, Row, Button } from "react-bootstrap";
+import '../assets/css/landing.css';
+
+const Landing = () => {
+  return (
+    <Container>
+        <nav>
+         <img src={Logo} alt="logo"></img>
+        </nav>
+      
+
+      <Row className="landing-row">
+
+        <Col className="info d-xs-flex justify-content-center align-items-center" xs={12} lg={7}>
+        <h1 style={{fontWeight: '700', fontSize: '4rem'}}>
+          Track <span>Job</span> Applications
+        </h1>
+        <p>
+          Our job tracking application simplifies your workflow by enabling
+          seamless task assignment, real-time progress tracking, and effective
+          deadline management. With integrated communication tools for enhanced
+          collaboration and detailed performance reporting, it keeps you
+          organized and productive. 
+        </p>
+
+        <button style={{backgroundColor: 'var(--primary-500)', color: 'white', marginRight: '2rem'}} className="btn mr-4">Register</button>
+        <button style={{backgroundColor: 'var(--primary-500)', color: 'white'}} className="btn">Login / Demo User</button>
+
+        </Col>
+
+        <Col>
+        <img src={main} alt="landing-img" className="img d-none d-lg-block"></img>
+        </Col>
+        
+      </Row>
+
+
+    </Container>
+  );
+};
+
+export default Landing;
