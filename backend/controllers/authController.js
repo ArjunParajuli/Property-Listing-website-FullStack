@@ -1,4 +1,4 @@
-import userModel from "../models/User.js"
+import User from "../models/User.js"
 import {StatusCodes} from 'http-status-codes';
 import BadRequestError from "../errors/notFoundError.js";
 
@@ -20,13 +20,14 @@ const registerController = async(req, res, next) =>{
         throw new BadRequestError("Please provide all fields!")  // throw custom error to the errorHandler middleware 
     }
 
-    const userAlreadyExists = await userModel.findOne({email});
+    const userAlreadyExists = await User.findOne({email});
     if(userAlreadyExists) {
         throw new BadRequestError("Email already exists!")
     }
 
-    const user = await userModel.create({name, email, password})
-    res.status(StatusCodes.OK).json(user)
+    const user = await User.create({name, email, password})
+    const jwtToken = user.createJWT(); // calling the instance func that returns us a jwt token for this particular user
+    res.status(StatusCodes.OK).json({ user:{name: user.name, lastName:user.lastName, email: user.email, location: user.location}, jwtToken, location:user.location}) // sending the user data and jwt token to the client
 }
 
 const loginController = (req, res) => {
@@ -34,7 +35,7 @@ const loginController = (req, res) => {
 }
 
 const updateUserController = (req, res) => {
-    res.send("Ok updateUser")
+    res.send("Ok updateUser") 
 }
 
 export {registerController, loginController, updateUserController}

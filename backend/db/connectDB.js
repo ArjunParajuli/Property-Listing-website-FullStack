@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const connectDB = async (db_url) => {
+const connectDB = async(db_url) => {
     try {
         await mongoose.connect(db_url, {dbName: "JobSol"});
         console.log("Connected to Atlas");
