@@ -24,9 +24,9 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/jobs", jobsRoutes);
 
 
-app.get('/', (req, res)=>{
-    res.send("<h1>Hey bro!</h1>")
-})
+app.get('/', (req, res) => {
+    res.json({message: "Data"});
+  });
 
 // if above routes don't match then this works
 app.use(pageNotFound)
