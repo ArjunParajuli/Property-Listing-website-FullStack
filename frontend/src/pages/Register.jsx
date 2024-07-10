@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from "../assets/images/logo.svg";
 import '../assets/css/register.css';
 import SubmitBtn from '../components/SubmitBtn';
 import Alert from '../components/Alert';
 import {useAppContext} from '../context/AppContext';
 import FormRow from '../components/FormRow';
+import { useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
@@ -15,10 +16,12 @@ const Register = () => {
     isLogIn: true,
   });
 
+  const navigate = useNavigate();
+
 
   // consume data from global context 
   // const {initialState} = useContext(AppContext) // consume using context
-  const { showAlert, displayAlert } = useAppContext() // consume using custom hook
+  const { showAlert, displayAlert, registerUser, user } = useAppContext() // consume using custom hook
   // console.log(initialState)
 
   const submitHandler = (e) => {
@@ -26,12 +29,20 @@ const Register = () => {
     
     const {name, email, password, isLogIn} = userData
     if(password==='' || email==='' || (!isLogIn && name==='')){
-      displayAlert()
+      displayAlert();
+      return;  // not valid so return without creating a new user
+    }
+
+    // new user data
+    const newUser = {name, email, password}; 
+    if(isLogIn){
+      console.log("User already a member!")
+    }else{
+      registerUser(newUser) // send newUser data to registerUser() func in AppContext
     }
   }
 
   const changeHandler = (inpText, inpName) => {
-    console.log(inpText)
     setUserData((prev)=>{
       return{
         ...prev,
@@ -40,6 +51,11 @@ const Register = () => {
     })
   }
 
+// if user registers/logs in, go to dashboard
+  useEffect(()=>{
+    if(user)
+      navigate('/')
+  }, [user, navigate])
 
   return (
     <form className='flex items-center justify-center min-h-screen bg-gray-100' onSubmit={submitHandler}>
@@ -64,7 +80,8 @@ const Register = () => {
   
         <div className='text-center'>
           <p> {userData.isLogIn ? 'Not a member yet?' : 'Already a member?'} </p>
-              <button className='text-blue-500 hover:underline' type='submit' onClick={()=>setUserData((prev) => {
+  {/* if type='submit' then when toggling, it'll trigger the onSubmit event of form which then calls submitHandler() and as the fields are empty, display alert() func is called & hence alert is displayed */}
+              <button className='text-blue-500 hover:underline' type='button' onClick={()=>setUserData((prev) => {
                 return {
                   ...prev,
                   isLogIn: !prev.isLogIn
