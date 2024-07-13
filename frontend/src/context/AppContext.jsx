@@ -37,7 +37,7 @@ export const AppProvider = ({children}) => {
         dispatch({type: CLOSE_ALERT})
       }, 3000)
     } 
-
+ 
     const storeInLocalStorage = (user, jwtToken, location) => {
       localStorage.setItem('user', JSON.stringify(user)); // we can only store strings in localStorage so convert obj to string
       localStorage.setItem('jwtToken', jwtToken);

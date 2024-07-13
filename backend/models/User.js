@@ -55,5 +55,13 @@ userSchema.methods.createJWT = function(){
     return jwt.sign({userId: this._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME});
 }
 
+// instance method for comparing user entered password with db pw.
+// whenever in the login controller this method is called then for the current logging in user, this method will be called. 
+// i.e. user entered pw ko entered email wala pw se compare kiya jayega
+userSchema.methods.comparePasswords = async function(enteredPassword){
+    const isCorrectPw = await bcrypt.compare(enteredPassword, this.password) // there is no unhashing of pw
+    return isCorrectPw
+}  
+
 const User = mongoose.model("User", userSchema);
 export default User
