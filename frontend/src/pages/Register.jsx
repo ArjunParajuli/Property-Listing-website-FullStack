@@ -6,6 +6,7 @@ import Alert from '../components/Alert';
 import {useAppContext} from '../context/AppContext';
 import FormRow from '../components/FormRow';
 import { useNavigate } from 'react-router-dom';
+import { EMPTY_FIELDS } from '../context/action';
 
 
 const Register = () => {
@@ -21,7 +22,7 @@ const Register = () => {
 
   // consume data from global context 
   // const {initialState} = useContext(AppContext) // consume using context
-  const { showAlert, displayAlert, registerUser, user } = useAppContext() // consume using custom hook
+  const { showAlert, displayAlert, registerUser, loginUser, user } = useAppContext() // consume using custom hook
   // console.log(initialState)
 
   const submitHandler = (e) => {
@@ -29,17 +30,19 @@ const Register = () => {
     
     const {name, email, password, isLogIn} = userData
     if(password==='' || email==='' || (!isLogIn && name==='')){
-      displayAlert();
+      displayAlert(EMPTY_FIELDS);
       return;  // not valid so return without creating a new user
     }
-
-    // new user data
-    const newUser = {name, email, password}; 
+    
     if(isLogIn){
-      console.log("User already a member!")
+      // user entered data
+      const newUser = {email, password};
+      loginUser(newUser)
     }else{
+      const newUser = {name, email, password}; 
       registerUser(newUser) // send newUser data to registerUser() func in AppContext
     }
+
   }
 
   const changeHandler = (inpText, inpName) => {

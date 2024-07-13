@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useReducer } from 'react'
+import React, { createContext, useContext, useReducer } from 'react'
 import { reducer } from './reducer';
-import { DISPLAY_ALERT, CLOSE_ALERT, REGISTER_USER_BEGIN, REGISTER_USER_SUCCESS, REGISTER_USER_ERROR } from './action';
+import { DISPLAY_ALERT, CLOSE_ALERT, EMPTY_FIELDS, REGISTER_USER_BEGIN, REGISTER_USER_SUCCESS, REGISTER_USER_ERROR, LOGIN_USER_BEGIN, LOGIN_USER_SUCCESS, LOGIN_USER_ERROR } from './action';
 import axios from 'axios';
 
 // Create a context
@@ -29,8 +29,11 @@ export const AppProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     // update showAlert & show the alert message 
-    const displayAlert = () => {
-      dispatch({type: DISPLAY_ALERT})
+    const displayAlert = (type) => {
+      if(type === EMPTY_FIELDS)
+        dispatch({type: EMPTY_FIELDS})
+      else
+        dispatch({type: DISPLAY_ALERT})
 
       // remove alert msg after 3 sec
       setTimeout(()=>{
@@ -67,8 +70,25 @@ export const AppProvider = ({children}) => {
       }      
     }
 
+    const loginUser = async(newUser) => {
+      dispatch({type: LOGIN_USER_BEGIN});
+      try{
+        const response = await axios.post('/api/v1/auth/login', newUser);
+        const {user, jwtToken, location} = response.data;
+        
+        dispatch({type: LOGIN_USER_SUCCESS, payload: {user, jwtToken, location}})
+
+        // store the user data, token & userLocation in localStorage
+        storeInLocalStorage(user, jwtToken, location);
+      }catch(err){
+        dispatch({type: LOGIN_USER_ERROR, payload: {msg: err.response.data.msg}})
+        console.log(err.response)
+      }
+    }
+
+
       return (
-        <AppContext.Provider value={{ ...state, displayAlert, registerUser }} >
+        <AppContext.Provider value={{ ...state, displayAlert, registerUser, loginUser }} >
             {children}
         </AppContext.Provider>
       )
