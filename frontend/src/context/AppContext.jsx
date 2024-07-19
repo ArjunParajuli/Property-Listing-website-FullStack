@@ -19,7 +19,7 @@ export const initialState = {
   token: jwtToken || null,
   userLocation: userLocation || '',
   propertyLocation: userLocation || '',
-  showSidebar: true
+  showSidebar: false
 }; 
 
 
