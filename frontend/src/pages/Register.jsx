@@ -42,7 +42,6 @@ const Register = () => {
       const newUser = {name, email, password}; 
       registerUser(newUser) // send newUser data to registerUser() func in AppContext
     }
-
   }
 
   const changeHandler = (inpText, inpName) => {
@@ -64,7 +63,7 @@ const Register = () => {
     <form className='flex items-center justify-center min-h-screen bg-gray-100' onSubmit={submitHandler}>
       <div className='bg-white p-8 rounded-lg shadow-lg w-full max-w-md'>
         <div className='my-4'>
-          <img src={Logo} alt="logo" />
+          <img src={Logo} alt="logo" width="160" height='50' />
         </div>
 
   

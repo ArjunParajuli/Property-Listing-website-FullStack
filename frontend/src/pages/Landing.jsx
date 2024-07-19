@@ -1,14 +1,14 @@
 import React from "react";
 import Logo from "../assets/images/logo.svg";
 import main from "../assets/images/main.svg"
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import '../assets/css/landing.css';
 
 const Landing = () => {
   return (
     <Container>
         <nav>
-         <img src={Logo} alt="logo"></img>
+         <img src={Logo} alt="logo" width="160" height='50'></img>
         </nav>
       
 

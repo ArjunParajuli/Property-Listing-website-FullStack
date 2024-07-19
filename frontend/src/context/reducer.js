@@ -1,4 +1,5 @@
-import { CLOSE_ALERT, DISPLAY_ALERT, EMPTY_FIELDS, LOGIN_USER_BEGIN, LOGIN_USER_ERROR, LOGIN_USER_SUCCESS, REGISTER_USER_BEGIN, REGISTER_USER_ERROR, REGISTER_USER_SUCCESS } from "./action";
+import { CLOSE_ALERT, DISPLAY_ALERT, EMPTY_FIELDS, LOGIN_USER_BEGIN, LOGIN_USER_ERROR, LOGIN_USER_SUCCESS, REGISTER_USER_BEGIN, REGISTER_USER_ERROR, REGISTER_USER_SUCCESS, SHOW_SIDEBAR, LOGOUT_USER } from "./action";
+import { initialState } from "./AppContext";
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -71,6 +72,19 @@ export const reducer = (state, action) => {
           showAlert: true,
           alertType: 'danger',
           alertText: action.payload.msg
+        };
+      case SHOW_SIDEBAR:
+        return {
+          ...state,
+          showSidebar: !state.showSidebar
+        }
+      case LOGOUT_USER:
+        return {
+          ...initialState,
+          user: null,
+          token: null,
+          userLocation: '',
+          propertyLocation: ''
         }
     default:
       return state;

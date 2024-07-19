@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react'
 import { reducer } from './reducer';
-import { DISPLAY_ALERT, CLOSE_ALERT, EMPTY_FIELDS, REGISTER_USER_BEGIN, REGISTER_USER_SUCCESS, REGISTER_USER_ERROR, LOGIN_USER_BEGIN, LOGIN_USER_SUCCESS, LOGIN_USER_ERROR } from './action';
+import { DISPLAY_ALERT, CLOSE_ALERT, EMPTY_FIELDS, REGISTER_USER_BEGIN, REGISTER_USER_SUCCESS, REGISTER_USER_ERROR, LOGIN_USER_BEGIN, LOGIN_USER_SUCCESS, LOGIN_USER_ERROR, SHOW_SIDEBAR, LOGOUT_USER } from './action';
 import axios from 'axios';
 
 // Create a context
@@ -10,7 +10,7 @@ const user = localStorage.getItem('user');
 const jwtToken = localStorage.getItem('jwtToken');
 const userLocation = localStorage.getItem('location');
 
-const initialState = {
+export const initialState = {
   isLoading: false,
   showAlert: false,
   alertText: '',
@@ -18,7 +18,8 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token: jwtToken || null,
   userLocation: userLocation || '',
-  propertyLocation: userLocation || ''
+  propertyLocation: userLocation || '',
+  showSidebar: true
 }; 
 
 
@@ -47,7 +48,7 @@ export const AppProvider = ({children}) => {
       localStorage.setItem('location', location)
     }
 
-    const removeFromLocalStorage = () => { // for logout
+    const removeFromLocalStorage = () => { // for logoutUser
       localStorage.removeItem('user')
       localStorage.removeItem('jwtToken')
       localStorage.removeItem('location')
@@ -86,9 +87,18 @@ export const AppProvider = ({children}) => {
       }
     }
 
+    const toggleSidebar = () =>{
+      dispatch({type: SHOW_SIDEBAR})
+    }
+
+    
+    const logoutUser = () =>{
+      dispatch({type: LOGOUT_USER})
+      removeFromLocalStorage();
+    }
 
       return (
-        <AppContext.Provider value={{ ...state, displayAlert, registerUser, loginUser }} >
+        <AppContext.Provider value={{ ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser }} >
             {children}
         </AppContext.Provider>
       )
