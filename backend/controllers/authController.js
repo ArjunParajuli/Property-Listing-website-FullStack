@@ -61,6 +61,7 @@ const loginController = async(req, res) => {
 }
 
 const updateUserController = (req, res) => {
+    console.log(req.user)
     res.send("Ok updateUser") 
 }
 
