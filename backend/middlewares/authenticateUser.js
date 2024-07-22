@@ -12,15 +12,12 @@ const authenticateUser = async(req, res, next) =>{
     try{
         const payload = jwt.verify(jwtToken, process.env.JWT_SECRET)
         // add userId in the request so that we can access it in updateController and also propertiesController
-        req.user = {user: payload.userId}
+        req.user = {userId: payload.userId}
 
-        next() // calls the next middleware. After that control goes to updateUserController or propertiesController 
+        next() // calls the next middleware. After this, control goes to updateUserController or propertiesController 
     }catch(err){
-        console.log(err)
+        res.json(err)
     }
-
-
-    
 }
 
 export default authenticateUser;

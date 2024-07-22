@@ -10,22 +10,18 @@ const SharedLayout = () => {
   const {showSidebar} = useAppContext();
   return (
     <Wrapper>
-        <main className='dashboard'>
-          {
-            showSidebar && (
-              <>
-              <BigSidebar />
-              <SmallSidebar />
-              </>
-            )
-          }
-
-        <Navbar />
-
-        <div className='dashboard-page'> 
-        <Outlet />
+        <Wrapper>
+      <main className='dashboard'>
+        <SmallSidebar />
+        <BigSidebar />
+        <div>
+          <Navbar />
+          <div className='dashboard-page'>
+            <Outlet />
+          </div>
         </div>
-        </main>
+      </main>
+    </Wrapper>
     </Wrapper>
   )
 }

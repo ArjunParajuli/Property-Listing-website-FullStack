@@ -71,9 +71,9 @@ const Register = () => {
 
         { showAlert && <Alert /> }
   
-        { !userData.isLogIn && <FormRow type='text' name='name' onChange={changeHandler} /> }
-        <FormRow type='email' name='email' onChange={changeHandler} />
-        <FormRow type='password' name='password' onChange={changeHandler} />
+        { !userData.isLogIn && <FormRow type='text' name='name' changeHandler={changeHandler} /> }
+        <FormRow type='email' name='email' changeHandler={changeHandler} />
+        <FormRow type='password' name='password' changeHandler={changeHandler} />
   
         <div className='mb-4'>
           <SubmitBtn />

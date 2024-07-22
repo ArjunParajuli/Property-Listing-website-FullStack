@@ -29,6 +29,14 @@ export const AppProvider = ({children}) => {
   // dispatch function to update the state
     const [state, dispatch] = useReducer(reducer, initialState);
 
+  // axios instance
+  const authFetch = axios.create({
+    baseURL: '/api/v1',
+    headers: {
+      Authorization: `Bearer ${state.token}`
+    }
+  })
+
     // update showAlert & show the alert message 
     const displayAlert = (type) => {
       if(type === EMPTY_FIELDS)
@@ -97,8 +105,17 @@ export const AppProvider = ({children}) => {
       removeFromLocalStorage();
     }
 
+    const updateUser = async(userData) =>{
+      try{
+        const {data} = await authFetch.patch('/auth/update-user', userData)
+        console.log(data)
+      }catch(err){
+        console.log(err)
+      }
+    }
+
       return (
-        <AppContext.Provider value={{ ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser }} >
+        <AppContext.Provider value={{ ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser, updateUser }} >
             {children}
         </AppContext.Provider>
       )

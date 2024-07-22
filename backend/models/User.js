@@ -44,6 +44,7 @@ const userSchema = new mongoose.Schema({
 // middleware that runs before the document is saved in the db
 // not using arrow func bcoz we need to use this poiinter
 userSchema.pre('save', async function(){
+    if(!this.isModified('password')) return;
     const salt = await bcrypt.genSalt(5);
     this.password = await bcrypt.hash(this.password, salt);
 
@@ -59,7 +60,7 @@ userSchema.methods.createJWT = function(){
 // whenever in the login controller this method is called then for the current logging in user, this method will be called. 
 // i.e. user entered pw ko entered email wala pw se compare kiya jayega
 userSchema.methods.comparePasswords = async function(enteredPassword){
-    const isCorrectPw = await bcrypt.compare(enteredPassword, this.password) // there is no unhashing of pw
+    const isCorrectPw = await bcrypt.compare(enteredPassword, this.password) // this will refer to the user object that called this function
     return isCorrectPw
 }  
 

@@ -60,9 +60,23 @@ const loginController = async(req, res) => {
     
 }
 
-const updateUserController = (req, res) => {
-    console.log(req.user)
-    res.send("Ok updateUser") 
+const updateUserController = async(req, res) => {
+    try{
+        const userId = req.user.userId;
+        const {name, email, lastName, location} = req.body;
+        const userData = await User.findOne({_id: userId})
+        userData.name = name;
+        userData.email = email;
+        userData.lastName = lastName;
+        userData.location = location;
+
+        const updatedUser = await userData.save();
+        const jwtToken = updatedUser.createJWT();  // update the jwtToken aslo, not compulsory
+        res.status(StatusCodes.CREATED).json({ user:{name: updatedUser.name, lastName:updatedUser.lastName, email: updatedUser.email, location: updatedUser.location}, jwtToken, location:updatedUser.location}) // sending the user data and jwt token to the client
+    }catch(err){
+        res.status(500).send("Internal Server Error");
+    }
+    
 }
 
 export {registerController, loginController, updateUserController}
