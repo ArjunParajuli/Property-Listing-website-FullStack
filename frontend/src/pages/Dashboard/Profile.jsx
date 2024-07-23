@@ -3,6 +3,7 @@ import { useAppContext } from '../../context/AppContext'
 import FormRow from '../../components/FormRow';
 import Wrapper from '../../wrappers/profileForm';
 import Alert from '../../components/Alert';
+import { EMPTY_FIELDS } from '../../context/action';
 
 const Profile = () => {
   const { user, showAlert, updateUser, displayAlert, isLoading} = useAppContext();
@@ -26,7 +27,7 @@ const Profile = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     if (!userData.name || !userData.email || !userData.lastName || !userData.location) {
-      displayAlert()
+      displayAlert(EMPTY_FIELDS)
       return
     }
     updateUser(userData)
