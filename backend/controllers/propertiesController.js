@@ -1,5 +1,14 @@
-const createPropertyController = (req, res) =>{
-    res.send("Create Jobs response")
+import { StatusCodes } from "http-status-codes";
+import BadRequestError from "../errors/badRequestError.js";
+import Property from "../models/Property.js";
+
+const createPropertyController = async(req, res) =>{
+   const {owner, propertyLocation} = req.body;
+   console.log(req.body)
+   if(!owner || !propertyLocation) throw new BadRequestError("Enter both Owner and Property Location!")
+    req.body.createdBy = req.user.userId
+   const property = await Property.create(req.body)
+   res.status(StatusCodes.CREATED).json(property)
 } 
 
 const deletePropertyController = (req, res) =>{
