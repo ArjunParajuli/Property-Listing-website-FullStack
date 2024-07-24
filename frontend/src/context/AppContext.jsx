@@ -35,6 +35,14 @@ export const initialState = {
   userLocation: userLocation || "",
   propertyLocation: userLocation || "",
   showSidebar: false,
+  isEditing: false,
+  editPropertyId: '',
+  owner: '',
+  jobLocation: '',
+  propertyTypeOptions: ['rent', 'buy'],
+  propertyType: 'rent',
+  statusOptions: ['meeting', 'declined', 'pending'],
+  status: 'pending',
 };
 
 // Create a component that provides the context
