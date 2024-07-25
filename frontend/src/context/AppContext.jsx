@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { reducer } from "./reducer";
+import { toast, Bounce } from 'react-toastify';
 import {
   DISPLAY_ALERT,
   CLOSE_ALERT,
@@ -15,6 +16,10 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_SUCCESS,
+  CREATE_JOB_ERROR,
 } from "./action";
 import axios from "axios";
 
@@ -38,7 +43,7 @@ export const initialState = {
   isEditing: false,
   editPropertyId: '',
   owner: '',
-  jobLocation: '',
+  propertyLocation: '',
   propertyTypeOptions: ['rent', 'buy'],
   propertyType: 'rent',
   statusOptions: ['meeting', 'declined', 'pending'],
@@ -157,6 +162,44 @@ export const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  // for handling change in inputs of AddProperty comp
+  const handleChangeInContext = (value, name) =>{
+    dispatch({type: HANDLE_CHANGE, payload: {name: name, value: value}})
+  }
+
+  const createJob = async() =>{
+    dispatch({ type: CREATE_JOB_BEGIN });
+    try {
+      const { owner, propertyLocation, propertyType, status } = state;
+      await authFetch.post('/properties', {
+        owner,
+        propertyLocation,
+        propertyType,
+        status,
+      });
+      dispatch({ type: CREATE_JOB_SUCCESS });
+      toast.success('Property Listed Successfully!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
+      
+    } catch (error) {
+      // if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_JOB_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -168,6 +211,8 @@ export const AppProvider = ({ children }) => {
         toggleSidebar,
         logoutUser,
         updateUser,
+        handleChangeInContext,
+        createJob
       }}
     >
       {children}

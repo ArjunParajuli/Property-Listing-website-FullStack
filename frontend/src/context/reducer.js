@@ -13,6 +13,7 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -123,6 +124,11 @@ export const reducer = (state, action) => {
           alertType: 'danger',
           alertText: action.payload.msg,
         };
+      case HANDLE_CHANGE:
+          return {
+            ...state,
+            [action.payload.name]: action.payload.value,
+          };
     default:
       return state;
   }

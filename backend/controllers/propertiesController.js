@@ -9,14 +9,18 @@ const createPropertyController = async(req, res) =>{
     req.body.createdBy = req.user.userId
    const property = await Property.create(req.body)
    res.status(StatusCodes.CREATED).json(property)
+
 } 
 
-const deletePropertyController = (req, res) =>{
-    res.send("Jobs response")
+const deletePropertyController = async(req, res) =>{
+
+    
 } 
 
-const getAllPropertiesController = (req, res) =>{
-    res.send("All Jobs ")
+const getAllPropertiesController = async(req, res) =>{
+    const properties = await Property.find({createdBy: req.user.userId})
+    console.log(properties)
+    res.status(StatusCodes.OK).json({properties, propertiesLength: properties.length, numOfPages: 1})
 } 
 
 const updatePropertyController = (req, res) =>{

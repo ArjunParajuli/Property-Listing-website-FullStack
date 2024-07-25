@@ -12,7 +12,7 @@ const FormRow = ({ type, name, labelText, defaultValue, changeHandler }) => {
           name={name}
           className='p-2 border border-gray-300 rounded'
           defaultValue={defaultValue || ''}
-          onChange={(e)=>changeHandler(e.target.value, name)}
+          onChange={changeHandler}
         />
       </div>
     );

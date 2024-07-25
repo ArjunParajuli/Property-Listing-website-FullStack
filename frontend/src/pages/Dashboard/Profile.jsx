@@ -15,13 +15,14 @@ const Profile = () => {
     lastName: user?.lastName
   })
 
-  const changeHandler = (inpText, inpType) => {
+  const changeHandler = (e) => {
     setUserData((prev)=>{
       return {
         ...prev,
-        [inpType]: inpText
+        [e.target.name]: e.target.value
       }
     })
+    console.log(userData)
   }
 
   const submitHandler = (e) => {

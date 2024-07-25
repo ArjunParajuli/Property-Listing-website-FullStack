@@ -17,11 +17,15 @@ const AddProperty = () => {
     propertyTypeOptions,
     status,
     statusOptions, 
+    createJob,
+    handleChangeInContext
   } = useAppContext()
   
   
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if(isEditing) return 
 
     if (!owner || !propertyLocation) {
       displayAlert(EMPTY_FIELDS)
@@ -31,9 +35,7 @@ const AddProperty = () => {
   }
 
   const changeHandler = (e) => {
-    const name = e.target.name
-    const value = e.target.value
-    
+    handleChangeInContext(e.target.value, e.target.name)
   }
 
   return (
@@ -66,7 +68,7 @@ const AddProperty = () => {
           />
           {/* property type */}
            <FormRowSelect
-            name='jobType'
+            name='propertyType'
             labelText='property type'
             defaultValue={propertyType}
             changeHandler={changeHandler}
@@ -81,15 +83,6 @@ const AddProperty = () => {
               disabled={isLoading}
             >
               submit
-            </button>
-            <button
-              className='btn btn-block clear-btn'
-              onClick={(e) => {
-                e.preventDefault()
-                clearValues()
-              }}
-            >
-              clear
             </button>
           </div>
         </div>

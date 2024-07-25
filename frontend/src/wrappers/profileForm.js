@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     width: 100%;
   }
   .form-row {
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
   .form-center {
     display: grid;
