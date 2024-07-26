@@ -17,7 +17,7 @@ const AddProperty = () => {
     propertyTypeOptions,
     status,
     statusOptions, 
-    createJob,
+    createProperty,
     handleChangeInContext
   } = useAppContext()
   
@@ -31,7 +31,7 @@ const AddProperty = () => {
       displayAlert(EMPTY_FIELDS)
       return
     }
-    createJob()
+    createProperty()
   }
 
   const changeHandler = (e) => {

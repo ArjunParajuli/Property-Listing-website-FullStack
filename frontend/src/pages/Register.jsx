@@ -44,11 +44,11 @@ const Register = () => {
     }
   }
 
-  const changeHandler = (inpText, inpName) => {
+  const changeHandler = (e) => {
     setUserData((prev)=>{
       return{
         ...prev,
-      [inpName]: inpText
+      [e.target.name]: e.target.value
       }
     })
   }

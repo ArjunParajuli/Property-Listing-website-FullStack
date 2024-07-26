@@ -19,7 +19,6 @@ const deletePropertyController = async(req, res) =>{
 
 const getAllPropertiesController = async(req, res) =>{
     const properties = await Property.find({createdBy: req.user.userId})
-    console.log(properties)
     res.status(StatusCodes.OK).json({properties, propertiesLength: properties.length, numOfPages: 1})
 } 
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { reducer } from "./reducer";
 import { toast, Bounce } from 'react-toastify';
 import {
@@ -17,9 +17,11 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
-  CREATE_JOB_BEGIN,
-  CREATE_JOB_SUCCESS,
-  CREATE_JOB_ERROR,
+  CREATE_PROPERTY_BEGIN,
+  CREATE_PROPERTY_SUCCESS,
+  CREATE_PROPERTY_ERROR,
+  GET_PROPERTIES_BEGIN,
+  GET_PROPERTIES_SUCCESS,
 } from "./action";
 import axios from "axios";
 
@@ -48,6 +50,10 @@ export const initialState = {
   propertyType: 'rent',
   statusOptions: ['meeting', 'declined', 'pending'],
   status: 'pending',
+  properties: [],
+  totalProperties: 0,
+  page: 1,
+  numOfPages: 1
 };
 
 // Create a component that provides the context
@@ -167,8 +173,8 @@ export const AppProvider = ({ children }) => {
     dispatch({type: HANDLE_CHANGE, payload: {name: name, value: value}})
   }
 
-  const createJob = async() =>{
-    dispatch({ type: CREATE_JOB_BEGIN });
+  const createProperty = async() =>{
+    dispatch({ type: CREATE_PROPERTY_BEGIN });
     try {
       const { owner, propertyLocation, propertyType, status } = state;
       await authFetch.post('/properties', {
@@ -177,7 +183,8 @@ export const AppProvider = ({ children }) => {
         propertyType,
         status,
       });
-      dispatch({ type: CREATE_JOB_SUCCESS });
+ 
+      dispatch({ type: CREATE_PROPERTY_SUCCESS });
       toast.success('Property Listed Successfully!', {
         position: "top-center",
         autoClose: 5000,
@@ -189,16 +196,48 @@ export const AppProvider = ({ children }) => {
         theme: "light",
         transition: Bounce,
         });
-      
+
     } catch (error) {
       // if (error.response.status === 401) return;
+      console.log(error)
       dispatch({
-        type: CREATE_JOB_ERROR,
+        type: CREATE_PROPERTY_ERROR,
         payload: { msg: error.response.data.msg },
       });
     }
     clearAlert();
   }
+
+  const getAllProperties = async() =>{
+    let url = `/properties`
+    dispatch({type: GET_PROPERTIES_BEGIN})
+    
+    try{
+      const res = await authFetch.get(url)
+      console.log(res.data)
+      const { properties, propertiesLength, numOfPages } = res.data;
+      dispatch({
+        type: GET_PROPERTIES_SUCCESS,
+        payload: {
+          properties, propertiesLength, numOfPages
+        },
+      });
+      
+    }catch(err){
+      console.log(err)
+    }
+  };
+
+
+  const setEditProperty = (id) => {
+    console.log(id)
+  };
+
+
+  const deleteProperty = async (propertyId) => {
+    console.log(propertyId)
+  };
+
 
   return (
     <AppContext.Provider
@@ -212,7 +251,10 @@ export const AppProvider = ({ children }) => {
         logoutUser,
         updateUser,
         handleChangeInContext,
-        createJob
+        createProperty,
+        getAllProperties,
+        setEditProperty,
+        deleteProperty
       }}
     >
       {children}

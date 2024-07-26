@@ -14,6 +14,8 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
+  GET_PROPERTIES_BEGIN,
+  GET_PROPERTIES_SUCCESS,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -129,6 +131,16 @@ export const reducer = (state, action) => {
             ...state,
             [action.payload.name]: action.payload.value,
           };
+      case GET_PROPERTIES_BEGIN:
+            return { ...state, isLoading: true, showAlert: false };
+      case GET_PROPERTIES_SUCCESS:
+            return {
+              ...state,
+              isLoading: false,
+              properties: action.payload.properties,
+              totalProperties: action.payload.propertiesLength,
+              numOfPages: action.payload.numOfPages,
+            };
     default:
       return state;
   }
