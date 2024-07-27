@@ -16,6 +16,7 @@ import {
   HANDLE_CHANGE,
   GET_PROPERTIES_BEGIN,
   GET_PROPERTIES_SUCCESS,
+  SET_EDIT_PROPERTY,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -141,6 +142,16 @@ export const reducer = (state, action) => {
               totalProperties: action.payload.propertiesLength,
               numOfPages: action.payload.numOfPages,
             };
+      case SET_EDIT_PROPERTY:
+        const propertyId = action.payload.id
+        const propertyToUpdate = state.properties.filter = ((p) => p._id===propertyId)
+        const {_id, owner, status, propertyLocation, propertyType } = propertyToUpdate
+        return {
+          ...state,
+          isEditing: true,
+          editPropertyId: _id,
+          owner, status, propertyLocation, propertyType
+        }
     default:
       return state;
   }

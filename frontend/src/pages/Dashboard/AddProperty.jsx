@@ -18,14 +18,17 @@ const AddProperty = () => {
     status,
     statusOptions, 
     createProperty,
-    handleChangeInContext
+    handleChangeInContext,
+    editProperty
   } = useAppContext()
   
   
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if(isEditing) return 
+    if(isEditing){
+      editProperty()
+    }
 
     if (!owner || !propertyLocation) {
       displayAlert(EMPTY_FIELDS)

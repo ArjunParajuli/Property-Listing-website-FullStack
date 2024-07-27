@@ -22,6 +22,7 @@ import {
   CREATE_PROPERTY_ERROR,
   GET_PROPERTIES_BEGIN,
   GET_PROPERTIES_SUCCESS,
+  SET_EDIT_PROPERTY,
 } from "./action";
 import axios from "axios";
 
@@ -230,8 +231,13 @@ export const AppProvider = ({ children }) => {
 
 
   const setEditProperty = (id) => {
-    console.log(id)
+    dispatch({type: SET_EDIT_PROPERTY})
   };
+
+  const editProperty = () =>{
+    console.log("In")
+    console.log(id)
+  }
 
 
   const deleteProperty = async (propertyId) => {
