@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import BadRequestError from "../errors/badRequestError.js";
 import Property from "../models/Property.js";
+import NotFoundError from "../errors/notFoundError.js";
 
 const createPropertyController = async(req, res) =>{
    const {owner, propertyLocation} = req.body;
@@ -14,7 +15,6 @@ const createPropertyController = async(req, res) =>{
 
 const deletePropertyController = async(req, res) =>{
 
-    
 } 
 
 const getAllPropertiesController = async(req, res) =>{
@@ -22,8 +22,16 @@ const getAllPropertiesController = async(req, res) =>{
     res.status(StatusCodes.OK).json({properties, propertiesLength: properties.length, numOfPages: 1})
 } 
 
-const updatePropertyController = (req, res) =>{
-    res.send("Jobs response")
+const updatePropertyController = async(req, res) =>{
+    const { id: propertyId } = req.params;
+    const property = await Property.findOne({_id: propertyId})
+    if(!property)
+        throw new NotFoundError("Property not found!")
+    
+    const updatedProperty = await Property.findOneAndUpdate({_id: propertyId}, req.body, {
+        runValidators: true
+    });
+    res.json(updatedProperty)
 } 
 
 const showStatsController = (req, res) =>{
