@@ -23,7 +23,8 @@ const deletePropertyController = async (req, res) => {
 
   console.log(property)
 
-    await property.remove() // delete from db
+    await Property.findByIdAndDelete(propertyId) // delete from db
+
     res.status(StatusCodes.OK).json({msg: "Property removed"})
 };
 

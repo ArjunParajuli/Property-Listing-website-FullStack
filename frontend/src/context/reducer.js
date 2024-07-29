@@ -17,6 +17,8 @@ import {
   GET_PROPERTIES_BEGIN,
   GET_PROPERTIES_SUCCESS,
   SET_EDIT_PROPERTY,
+  DELETE_PROPERTY_BEGIN,
+  DELETE_PROPERTY_SUCCESS,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -152,6 +154,16 @@ export const reducer = (state, action) => {
           editPropertyId: _id,
           owner, status, propertyLocation, propertyType
         }
+      case DELETE_PROPERTY_BEGIN:
+        return { ...state, isLoading: true };
+      case DELETE_PROPERTY_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          showAlert: true,
+          alertType: 'danger',
+          alertText: action.payload.msg,
+        };
     default:
       return state;
   }

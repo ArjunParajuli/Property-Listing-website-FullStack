@@ -23,6 +23,7 @@ import {
   GET_PROPERTIES_BEGIN,
   GET_PROPERTIES_SUCCESS,
   SET_EDIT_PROPERTY,
+  DELETE_PROPERTY_SUCCESS,
 } from "./action";
 import axios from "axios";
 
@@ -178,15 +179,17 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_PROPERTY_BEGIN });
     try {
       const { owner, propertyLocation, propertyType, status } = state;
-      await authFetch.post('/properties', {
+      const res = await authFetch.post('/properties', {
         owner,
         propertyLocation,
         propertyType,
         status,
       });
- 
+      
+      console.log(res)
+      if(res?.status === 201){
       dispatch({ type: CREATE_PROPERTY_SUCCESS });
-      toast.success('Property Listed Successfully!', {
+      toast.success('Property Listed Successfully', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -197,6 +200,7 @@ export const AppProvider = ({ children }) => {
         theme: "light",
         transition: Bounce,
         });
+      }
 
     } catch (error) {
       // if (error.response.status === 401) return;
@@ -241,7 +245,26 @@ export const AppProvider = ({ children }) => {
 
 
   const deleteProperty = async (propertyId) => {
-    console.log(propertyId)
+    try{
+      const res = await authFetch.delete(`/properties/${propertyId}`)
+      console.log(res)
+      dispatch({type: DELETE_PROPERTY_SUCCESS, payload:{msg: "Property Removed!"}})
+      toast.error('Property Removed Successfully', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
+
+      getAllProperties() // get call to get the updated jobs from the db
+    }catch(err){
+      logoutUser()
+    }
   };
 
 
