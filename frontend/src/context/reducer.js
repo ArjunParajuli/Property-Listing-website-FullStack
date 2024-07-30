@@ -19,6 +19,9 @@ import {
   SET_EDIT_PROPERTY,
   DELETE_PROPERTY_BEGIN,
   DELETE_PROPERTY_SUCCESS,
+  EDIT_PROPERTY_BEGIN,
+  EDIT_PROPERTY_SUCCESS,
+  EDIT_PROPERTY_ERROR,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -146,8 +149,8 @@ export const reducer = (state, action) => {
             };
       case SET_EDIT_PROPERTY:
         const propertyId = action.payload.id
-        const propertyToUpdate = state.properties.filter = ((p) => p._id===propertyId)
-        const {_id, owner, status, propertyLocation, propertyType } = propertyToUpdate
+        const propertyToUpdate = state.properties.filter((p) => p._id === propertyId)
+        const {_id, owner, status, propertyLocation, propertyType } = propertyToUpdate[0]
         return {
           ...state,
           isEditing: true,
@@ -157,6 +160,27 @@ export const reducer = (state, action) => {
       case DELETE_PROPERTY_BEGIN:
         return { ...state, isLoading: true };
       case DELETE_PROPERTY_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          showAlert: true,
+          alertType: 'danger',
+          alertText: action.payload.msg,
+        };
+      case EDIT_PROPERTY_BEGIN:
+        return {
+          ...state,
+          isLoading: true,
+        };
+      case EDIT_PROPERTY_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          showAlert: true,
+          alertType: 'success',
+          alertText: 'Property Updated!',
+        };
+      case EDIT_PROPERTY_ERROR:
         return {
           ...state,
           isLoading: false,

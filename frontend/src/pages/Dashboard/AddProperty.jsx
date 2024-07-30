@@ -28,6 +28,7 @@ const AddProperty = () => {
 
     if(isEditing){
       editProperty()
+      return;
     }
 
     if (!owner || !propertyLocation) {
@@ -51,7 +52,7 @@ const AddProperty = () => {
           <FormRow
             type='text'
             name='owner'
-            defaultValue={owner}
+            value={owner}
             changeHandler={changeHandler}
           />
           {/* location */}
@@ -59,7 +60,7 @@ const AddProperty = () => {
             type='text'
             labelText='Location'
             name='propertyLocation'
-            defaultValue={propertyLocation}
+            value={propertyLocation}
             changeHandler={changeHandler}
           />
           {/* property status */}

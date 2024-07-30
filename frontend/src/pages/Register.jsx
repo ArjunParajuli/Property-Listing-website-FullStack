@@ -45,6 +45,7 @@ const Register = () => {
   }
 
   const changeHandler = (e) => {
+    console.log(e.target.value)
     setUserData((prev)=>{
       return{
         ...prev,
@@ -71,9 +72,9 @@ const Register = () => {
 
         { showAlert && <Alert /> }
   
-        { !userData.isLogIn && <FormRow type='text' name='name' changeHandler={changeHandler} /> }
-        <FormRow type='email' name='email' changeHandler={changeHandler} />
-        <FormRow type='password' name='password' changeHandler={changeHandler} />
+        { !userData.isLogIn && <FormRow type='text' name='name' value={userData.name} changeHandler={changeHandler} /> }
+        <FormRow type='email' name='email' value={userData.email} changeHandler={changeHandler} />
+        <FormRow type='password' name='password' value={userData.password} changeHandler={changeHandler} />
   
         <div className='mb-4'>
           <SubmitBtn />

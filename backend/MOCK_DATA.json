@@ -1,0 +1,562 @@
+[
+  {
+    "owner": "Gradeigh McEnteggart",
+    "propertyLocation": "Korsakovo",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Lay Huckster",
+    "propertyLocation": "Gameleira",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Ty Dale",
+    "propertyLocation": "Himensulan",
+    "propertyType": "rent",
+    "status": "pending", 
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Daphna Hinemoor",
+    "propertyLocation": "Huadian",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Rudd Meenan",
+    "propertyLocation": "Magallanes",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Melody Dibble",
+    "propertyLocation": "Petushki",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Gabi Danieli",
+    "propertyLocation": "Colonia Elía",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Traver Greenset",
+    "propertyLocation": "Qianjin",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Norene Sayre",
+    "propertyLocation": "Jammā‘īn",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Aveline Williscroft",
+    "propertyLocation": "Odolanów",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Cirilo Cockram",
+    "propertyLocation": "Banjar Tengahbelayu",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Brit Aubery",
+    "propertyLocation": "Mazowe",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Gwenette Daviddi",
+    "propertyLocation": "Sanjiazi",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Dimitri Coldman",
+    "propertyLocation": "Detroit",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Chas Lease",
+    "propertyLocation": "Novopokrovskaya",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Arron Escoffier",
+    "propertyLocation": "Behbahān",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Chariot Daile",
+    "propertyLocation": "Merritt",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Olav Manterfield",
+    "propertyLocation": "Yuncheng",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Verge Dollar",
+    "propertyLocation": "Bahía Honda",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Dionysus Denniss",
+    "propertyLocation": "Margate",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Wenda Bottlestone",
+    "propertyLocation": "Fushun",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Svend Cuddy",
+    "propertyLocation": "Krynki",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Averyl Flory",
+    "propertyLocation": "Kavalerovo",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Maurene Chazier",
+    "propertyLocation": "Dicun",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Jeff Stailey",
+    "propertyLocation": "Xitieshan",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Wildon Crosbie",
+    "propertyLocation": "Jayawangi",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Addie Inggall",
+    "propertyLocation": "Karlstad",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Gayle Naisby",
+    "propertyLocation": "Mafraq",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Onfroi Skeermer",
+    "propertyLocation": "Srono",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Linda Makinson",
+    "propertyLocation": "Hexing",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Yorke Binks",
+    "propertyLocation": "Krajan Tanjungrejo",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Fancie Kettlesing",
+    "propertyLocation": "Tanahbeureum",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Shandie Lidgett",
+    "propertyLocation": "Shuiyang",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Elisha Haggarty",
+    "propertyLocation": "Codrington",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Brandise Gurley",
+    "propertyLocation": "Campo Largo",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Ag Godspeede",
+    "propertyLocation": "Koa",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Doris De Cruce",
+    "propertyLocation": "Booterstown",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Eldin Abramof",
+    "propertyLocation": "Kembé",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Bibby Dorgan",
+    "propertyLocation": "Shoushan",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Merrili Burcombe",
+    "propertyLocation": "Nankou",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Mead McTrustie",
+    "propertyLocation": "At-Bashi",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Cammy Jancic",
+    "propertyLocation": "Songjiang",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Gregorio Dalrymple",
+    "propertyLocation": "Basse-Terre",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Christoffer McCritchie",
+    "propertyLocation": "Omaha",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Bernard Wroughton",
+    "propertyLocation": "Novopavlovsk",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Rochelle McKue",
+    "propertyLocation": "Idrija",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Chuck Clampe",
+    "propertyLocation": "Gornja Koprivna",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Heidi Merrilees",
+    "propertyLocation": "Nanton",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Brear Valti",
+    "propertyLocation": "Sattahip",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Marlow Tynan",
+    "propertyLocation": "Murganhal",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Meaghan Brogan",
+    "propertyLocation": "Buzdyak",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Debby Fihelly",
+    "propertyLocation": "Yevpatoriya",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Abigael Alastair",
+    "propertyLocation": "Jönköping",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Kirsteni Andrich",
+    "propertyLocation": "Angered",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Frasquito Curuclis",
+    "propertyLocation": "Runsonglaozhai",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Orelia Fearby",
+    "propertyLocation": "Farroupilha",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Genovera Grassett",
+    "propertyLocation": "Osilnica",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Ravi Daily",
+    "propertyLocation": "Guruyan",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Nikki Emmison",
+    "propertyLocation": "Cankova",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Brynne Yearne",
+    "propertyLocation": "Barbudo",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Moishe McGinlay",
+    "propertyLocation": "Pingwang",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Tobin Kenlin",
+    "propertyLocation": "Oni",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Madel Matthews",
+    "propertyLocation": "Tsaghveri",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Immanuel Danilishin",
+    "propertyLocation": "Uychi",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Ricky Cocozza",
+    "propertyLocation": "Nogoonnuur",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Adara Fenix",
+    "propertyLocation": "Zhenjiang",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Coleman Matteacci",
+    "propertyLocation": "Ghār al Milḩ",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Jobi Collishaw",
+    "propertyLocation": "Zlaté Hory",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Orren Challin",
+    "propertyLocation": "Daohe",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Michael Lambkin",
+    "propertyLocation": "Bairro dos Marinheiros",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Lane de la Tremoille",
+    "propertyLocation": "Yantongtun",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Aeriell Giraldez",
+    "propertyLocation": "Inazawa",
+    "propertyType": "buy",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Hortense Widmore",
+    "propertyLocation": "Kouvola",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Vinni Tugwell",
+    "propertyLocation": "Grubišno Polje",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Wood Flaws",
+    "propertyLocation": "Łomianki",
+    "propertyType": "rent",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Golda Boule",
+    "propertyLocation": "Pagatin",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Caren Middell",
+    "propertyLocation": "Digby",
+    "propertyType": "rent",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Emmye Pattie",
+    "propertyLocation": "Tournai",
+    "propertyType": "rent",
+    "status": "pending",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Reinold Chesshire",
+    "propertyLocation": "Bali",
+    "propertyType": "buy",
+    "status": "declined",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  },
+  {
+    "owner": "Charles Janu",
+    "propertyLocation": "Shuangpengxi",
+    "propertyType": "buy",
+    "status": "meeting",
+    "createdBy": "6697c1e54af8da19d410f2dd"
+  }
+]

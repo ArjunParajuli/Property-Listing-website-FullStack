@@ -24,6 +24,9 @@ import {
   GET_PROPERTIES_SUCCESS,
   SET_EDIT_PROPERTY,
   DELETE_PROPERTY_SUCCESS,
+  EDIT_PROPERTY_BEGIN,
+  EDIT_PROPERTY_SUCCESS,
+  EDIT_PROPERTY_ERROR,
 } from "./action";
 import axios from "axios";
 
@@ -47,7 +50,6 @@ export const initialState = {
   isEditing: false,
   editPropertyId: '',
   owner: '',
-  propertyLocation: '',
   propertyTypeOptions: ['rent', 'buy'],
   propertyType: 'rent',
   statusOptions: ['meeting', 'declined', 'pending'],
@@ -231,18 +233,48 @@ export const AppProvider = ({ children }) => {
     }catch(err){
       console.log(err)
     }
+    console.log(state.properties)
   };
 
 
   const setEditProperty = (id) => {
-    dispatch({type: SET_EDIT_PROPERTY})
+    dispatch({type: SET_EDIT_PROPERTY, payload: {id}})
   };
 
-  const editProperty = () =>{
-    console.log("In")
-    console.log(id)
-  }
+  const editProperty = async() =>{
+    dispatch({ type: EDIT_PROPERTY_BEGIN });
 
+    try {
+      const { owner, propertyLocation, propertyType, status } = state;
+      await authFetch.patch(`/properties/${state.editPropertyId}`, {
+        owner,
+        propertyLocation,
+        propertyType,
+        status,
+      });
+      toast.success('Property Updated Successfully', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
+      dispatch({ type: EDIT_PROPERTY_SUCCESS });
+      // dispatch({ type: CLEAR_VALUES });
+      
+    } catch (error) {
+      dispatch({
+        type: EDIT_PROPERTY_ERROR,
+        payload: { msg: error?.response?.data?.msg },
+      });
+    }
+    getAllProperties()
+    clearAlert();
+  }
 
   const deleteProperty = async (propertyId) => {
     try{
@@ -283,6 +315,7 @@ export const AppProvider = ({ children }) => {
         createProperty,
         getAllProperties,
         setEditProperty,
+        editProperty,
         deleteProperty
       }}
     >

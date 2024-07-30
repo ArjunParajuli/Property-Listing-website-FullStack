@@ -21,8 +21,6 @@ const deletePropertyController = async (req, res) => {
   // check permissions
   checkPermissions(req.user, property.createdBy);
 
-  console.log(property)
-
     await Property.findByIdAndDelete(propertyId) // delete from db
 
     res.status(StatusCodes.OK).json({msg: "Property removed"})
