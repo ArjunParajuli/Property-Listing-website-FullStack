@@ -3,6 +3,7 @@ import BadRequestError from "../errors/badRequestError.js";
 import Property from "../models/Property.js";
 import NotFoundError from "../errors/notFoundError.js";
 import checkPermissions from "../utils/checkPermissions.js";
+import mongoose from "mongoose";
 
 const createPropertyController = async (req, res) => {
   const { owner, propertyLocation } = req.body;
@@ -51,8 +52,27 @@ const updatePropertyController = async (req, res) => {
   res.json(updatedProperty);
 };
 
-const showStatsController = (req, res) => {
-  res.send("Jobs status");
+const showStatsController = async(req, res) => {
+  let stats = await Property.aggregate([
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } }, 
+    { $group: { _id: '$status', count: { $sum: 1 } } },
+  ]);
+
+  // convert this arr to object for easiness in frontend
+  stats = stats.reduce((acc, curr)=>{
+    const {_id: title, count} = curr;
+    acc[title]= count;
+    return acc
+  }, {})
+
+  // if no jobs found send 0 for all
+  const defaultStats = {
+    pending: stats.pending || 0,
+    meeting: stats.meeting || 0,
+    declined: stats.declined || 0,
+  };
+
+  res.status(StatusCodes.OK).json({defaultStats})
 };
 
 export {
