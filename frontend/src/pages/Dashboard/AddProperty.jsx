@@ -12,6 +12,7 @@ const AddProperty = () => {
     showAlert,
     displayAlert,
     owner,
+    price,
     propertyLocation,
     propertyType,
     propertyTypeOptions,
@@ -53,6 +54,14 @@ const AddProperty = () => {
             type='text'
             name='owner'
             value={owner}
+            changeHandler={changeHandler}
+          />
+          {/* price */}
+          <FormRow
+            type='text'
+            labelText='Price'
+            name='price'
+            value={price}
             changeHandler={changeHandler}
           />
           {/* location */}

@@ -3,6 +3,7 @@ import Wrapper from '../wrappers/propertiesWrapper'
 import { useAppContext } from '../context/AppContext';
 import Alert from './Alert';
 import Property from './Property';
+import Loading from './Loading';
 
 const Properties = () => {
     const {
@@ -18,6 +19,8 @@ const Properties = () => {
       useEffect(() => {
         getAllProperties();
       }, []);
+
+      if(isLoading) return <Loading />
 
       if (properties?.length === 0) {
         return (

@@ -45,7 +45,6 @@ const Register = () => {
   }
 
   const changeHandler = (e) => {
-    console.log(e.target.value)
     setUserData((prev)=>{
       return{
         ...prev,

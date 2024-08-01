@@ -55,22 +55,34 @@ const updatePropertyController = async (req, res) => {
 const showStatsController = async(req, res) => {
   let stats = await Property.aggregate([
     { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } }, 
-    { $group: { _id: '$status', count: { $sum: 1 } } },
+    { $group: { _id: '$status', count: { $sum: 1 }, totalPrice: { $sum: '$price' } } },
   ]);
+
+ // average price of all properties
+ let avgPrice = stats.reduce((acc, curr)=>{
+  acc += curr.totalPrice
+  return acc;
+ }, 0);
 
   // convert this arr to object for easiness in frontend
   stats = stats.reduce((acc, curr)=>{
-    const {_id: title, count} = curr;
-    acc[title]= count;
+    const {_id: title, count, totalPrice} = curr;
+    acc[title] = {count, totalPrice};
     return acc
   }, {})
 
+  const count = await Property.countDocuments();
+ 
   // if no jobs found send 0 for all
   const defaultStats = {
     pending: stats.pending || 0,
     meeting: stats.meeting || 0,
     declined: stats.declined || 0,
+    propertiesCount: count || 0,
+    averagePrice: avgPrice || 0,
   };
+
+  console.log(defaultStats)
 
   res.status(StatusCodes.OK).json({defaultStats})
 };

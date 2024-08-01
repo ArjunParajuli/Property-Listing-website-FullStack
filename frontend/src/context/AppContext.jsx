@@ -27,6 +27,8 @@ import {
   EDIT_PROPERTY_BEGIN,
   EDIT_PROPERTY_SUCCESS,
   EDIT_PROPERTY_ERROR,
+  SHOW_STATS_SUCCESS,
+  SHOW_STATS_BEGIN,
 } from "./action";
 import axios from "axios";
 
@@ -50,6 +52,7 @@ export const initialState = {
   isEditing: false,
   editPropertyId: '',
   owner: '',
+  price: 0,
   propertyTypeOptions: ['rent', 'buy'],
   propertyType: 'rent',
   statusOptions: ['meeting', 'declined', 'pending'],
@@ -57,7 +60,8 @@ export const initialState = {
   properties: [],
   totalProperties: 0,
   page: 1,
-  numOfPages: 1
+  numOfPages: 1,
+  stats: {}
 };
 
 // Create a component that provides the context
@@ -300,6 +304,26 @@ export const AppProvider = ({ children }) => {
   };
 
 
+  const showStats = async () => {
+    dispatch({ type: SHOW_STATS_BEGIN });
+    try {
+      const { data } = await authFetch('/properties/stats');
+      console.log(data.defaultStats)
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: {
+          stats: data.defaultStats,
+        },
+      });
+    } catch (error) {
+      logoutUser();
+    }
+    clearAlert();
+  };
+
+
+
+
   return (
     <AppContext.Provider
       value={{
@@ -316,7 +340,8 @@ export const AppProvider = ({ children }) => {
         getAllProperties,
         setEditProperty,
         editProperty,
-        deleteProperty
+        deleteProperty,
+        showStats
       }}
     >
       {children}

@@ -22,6 +22,8 @@ import {
   EDIT_PROPERTY_BEGIN,
   EDIT_PROPERTY_SUCCESS,
   EDIT_PROPERTY_ERROR,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -187,6 +189,18 @@ export const reducer = (state, action) => {
           showAlert: true,
           alertType: 'danger',
           alertText: action.payload.msg,
+        };
+      case SHOW_STATS_BEGIN:
+        return {
+          ...state,
+          isLoading: true,
+          showAlert: false,
+        };
+      case SHOW_STATS_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          stats: action.payload.stats,
         };
     default:
       return state;

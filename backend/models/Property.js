@@ -7,6 +7,10 @@ const propertySchema = new mongoose.Schema(
       required: [true, 'Please provide owner'],
       maxlength: 50,
     },
+    price: {
+      type: Number,
+      required: [true, 'Please provide price'],
+    },
     status: {
       type: String,
       enum: ['meeting', 'declined', 'pending'],
