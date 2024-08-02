@@ -39,6 +39,8 @@ const user = localStorage.getItem("user");
 const jwtToken = localStorage.getItem("jwtToken");
 const userLocation = localStorage.getItem("location");
 
+// editPropertyId, owner, price, propertyLocation, propertyType 
+// either store currently editing property's info or store info of property to be added
 export const initialState = {
   isLoading: false,
   showAlert: false,
@@ -240,7 +242,7 @@ export const AppProvider = ({ children }) => {
     console.log(state.properties)
   };
 
-
+// set the currently editing property's details in our state
   const setEditProperty = (id) => {
     dispatch({type: SET_EDIT_PROPERTY, payload: {id}})
   };
@@ -249,9 +251,10 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_PROPERTY_BEGIN });
 
     try {
-      const { owner, propertyLocation, propertyType, status } = state;
+      const { owner, price, propertyLocation, propertyType, status } = state;
       await authFetch.patch(`/properties/${state.editPropertyId}`, {
         owner,
+        price,
         propertyLocation,
         propertyType,
         status,

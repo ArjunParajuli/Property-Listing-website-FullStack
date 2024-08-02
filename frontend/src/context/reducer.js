@@ -152,12 +152,13 @@ export const reducer = (state, action) => {
       case SET_EDIT_PROPERTY:
         const propertyId = action.payload.id
         const propertyToUpdate = state.properties.filter((p) => p._id === propertyId)
-        const {_id, owner, status, propertyLocation, propertyType } = propertyToUpdate[0]
+        const {_id, price, owner, status, propertyLocation, propertyType } = propertyToUpdate[0]
+        
         return {
           ...state,
           isEditing: true,
           editPropertyId: _id,
-          owner, status, propertyLocation, propertyType
+          owner, price, status, propertyLocation, propertyType
         }
       case DELETE_PROPERTY_BEGIN:
         return { ...state, isLoading: true };

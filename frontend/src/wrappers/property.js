@@ -117,8 +117,9 @@ const Wrapper = styled.article`
     height: 30px;
     border: none;
     border-radius: var(--borderRadius);
-    padding: 0.5rem 1rem;
+    // padding: 0.5rem 1rem;
     transition: var(--transition);
+    
   }
 
   .edit-btn {

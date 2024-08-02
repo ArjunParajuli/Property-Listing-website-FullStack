@@ -43,6 +43,8 @@ const AddProperty = () => {
     handleChangeInContext(e.target.value, e.target.name)
   }
 
+  console.log("price", price)
+
   return (
     <Wrapper>
       <form className='form'>

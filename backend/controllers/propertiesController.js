@@ -28,10 +28,44 @@ const deletePropertyController = async (req, res) => {
 };
 
 const getAllPropertiesController = async (req, res) => {
-  const properties = await Property.find({ createdBy: req.user.userId });
-  res
-    .status(StatusCodes.OK)
-    .json({ properties, propertiesLength: properties.length, numOfPages: 1 });
+  const { status, propertyType, search, sort } = req.query;
+  let queryObj = { createdBy: req.user.userId }; 
+  
+  // if status is pending/meeting/declined then add it in the query 
+  if(status !== 'all'){
+    queryObj.status = status
+  }
+  // same for propertyType
+  if(propertyType !== 'all'){
+    queryObj.propertyType = propertyType
+  }
+
+  // search location entered by user, use regex for case sensitivity
+  // case-insensitive search filter for a property named propertyLocation.
+  if(search){
+    queryObj.propertyLocation = { $regex: search, $options: 'i' }
+  }
+
+  let result = Property.find(queryObj);
+
+  // sort functionality
+  if (sort === 'latest') {
+    result = result.sort('-createdAt'); // Sorts the results by the createdAt field in descending order.
+  }
+  if (sort === 'oldest') {
+    result = result.sort('createdAt');
+  }
+  if (sort === 'a-z') {
+    result = result.sort('propertyLocation'); // Sorts the results by the position field in ascending order 
+  }
+  if (sort === 'z-a') {
+    result = result.sort('-propertyLocation');
+  }
+
+  // we're building the query object first and chaining modifications before executing it. 
+  // await keyword will execute the query immediately, so we're using it after all modifications are chained
+  const properties = await result;
+  res.status(StatusCodes.OK).json({ properties, propertiesLength: properties.length, numOfPages: 1 });
 };
 
 const updatePropertyController = async (req, res) => {
@@ -82,7 +116,6 @@ const showStatsController = async(req, res) => {
     averagePrice: avgPrice || 0,
   };
 
-  console.log(defaultStats)
 
   res.status(StatusCodes.OK).json({defaultStats})
 };

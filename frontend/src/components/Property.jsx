@@ -37,7 +37,7 @@ const Property = ({
                     <PropertyInfo icon={<FaMapLocationDot />} text={propertyLocation} />
                     <PropertyInfo icon={<BsFillCalendarDateFill />} text={date} />
                     <PropertyInfo icon={<FcBriefcase />} text={propertyType} />
-                    <div className={`status ${status}`}>{status}</div>
+                    <div className={`status text-green-700 bg-[#20C99766] ${status}`}>{status}</div>
                 </div>
                 <footer>
                     <div className='actions'>

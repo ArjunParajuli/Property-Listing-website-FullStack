@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const StatItem = ({ count, title, icon, color, bcg, animation }) => {
-    console.log("In statItem")
   return (
     <motion.div
       className={`p-4 rounded-lg shadow-lg ${bcg}`}
