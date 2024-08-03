@@ -63,7 +63,12 @@ export const initialState = {
   totalProperties: 0,
   page: 1,
   numOfPages: 1,
-  stats: {}
+  stats: {},
+  search: '',
+  searchStatus: 'all',
+  searchType: 'all',
+  sort: 'latest',
+  sortOptions: ['latest', 'oldest', 'a-z', 'z-a'],
 };
 
 // Create a component that provides the context
@@ -222,7 +227,8 @@ export const AppProvider = ({ children }) => {
   }
 
   const getAllProperties = async() =>{
-    let url = `/properties`
+    let url = `/properties?searchStatus=${searchStatus}&searchType=${searchType}&sort=${sort}`
+    if(search) url = url+`&search=${search}`
     dispatch({type: GET_PROPERTIES_BEGIN})
     
     try{
@@ -324,7 +330,15 @@ export const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+// search input fields 
+  const searchChangeHandler = ({name, value}) =>{
+    console.log(name, value)
+    dispatch({type: 'SEARCH_FILTER_CHANGE', payload:{ name, value} })
+  }
 
+const resetFilters = () =>{
+  console.log("reset")
+}
 
 
   return (
@@ -344,7 +358,9 @@ export const AppProvider = ({ children }) => {
         setEditProperty,
         editProperty,
         deleteProperty,
-        showStats
+        showStats,
+        searchChangeHandler,
+        resetFilters
       }}
     >
       {children}

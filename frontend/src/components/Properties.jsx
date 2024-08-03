@@ -14,11 +14,12 @@ const Properties = () => {
         totalProperties,
         numOfPages,
         showAlert,
+        search, searchStatus, searchType, sort 
       } = useAppContext();
 
       useEffect(() => {
         getAllProperties();
-      }, []);
+      }, [search, searchStatus, searchType, sort]);
 
       if(isLoading) return <Loading />
 

@@ -3,8 +3,10 @@ import Logo from "../assets/images/logo.svg";
 import main from "../assets/images/main.svg"
 import { Container, Col, Row } from "react-bootstrap";
 import '../assets/css/landing.css';
+import { useNavigate } from 'react-router-dom'
 
 const Landing = () => {
+  const navigate = useNavigate();
   return (
     <Container>
         <nav>
@@ -26,8 +28,8 @@ const Landing = () => {
           organized and productive. 
         </p>
 
-        <button style={{backgroundColor: 'var(--primary-500)', color: 'white', marginRight: '2rem'}} className="btn mr-4">Register</button>
-        <button style={{backgroundColor: 'var(--primary-500)', color: 'white'}} className="btn">Login / Demo User</button>
+        <button style={{backgroundColor: 'var(--primary-500)', color: 'white', marginRight: '2rem'}} className="btn mr-4" onClick={()=>navigate('/register')}>Register</button>
+        <button style={{backgroundColor: 'var(--primary-500)', color: 'white'}} className="btn" onClick={()=>navigate('/register')}>Login / Demo User</button>
 
         </Col>
 

@@ -32,11 +32,11 @@ const getAllPropertiesController = async (req, res) => {
   let queryObj = { createdBy: req.user.userId }; 
   
   // if status is pending/meeting/declined then add it in the query 
-  if(status !== 'all'){
+  if(status && status !== 'all'){
     queryObj.status = status
   }
   // same for propertyType
-  if(propertyType !== 'all'){
+  if(propertyType && propertyType !== 'all'){
     queryObj.propertyType = propertyType
   }
 
@@ -61,6 +61,7 @@ const getAllPropertiesController = async (req, res) => {
   if (sort === 'z-a') {
     result = result.sort('-propertyLocation');
   }
+
 
   // we're building the query object first and chaining modifications before executing it. 
   // await keyword will execute the query immediately, so we're using it after all modifications are chained

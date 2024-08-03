@@ -24,6 +24,8 @@ import {
   EDIT_PROPERTY_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  SEARCH_FILTER_CHANGE,
+  RESET_FILTERS,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -113,96 +115,119 @@ export const reducer = (state, action) => {
         propertyLocation: "",
       };
     case UPDATE_USER_BEGIN:
-        return { ...state, isLoading: true };
+      return { ...state, isLoading: true };
     case UPDATE_USER_SUCCESS:
-        return {
-          ...state,
-          isLoading: false,
-          user: action.payload.user,
-          token: action.payload.jwtToken,
-          userLocation: action.payload.userLocation,
-          propertyLocation: action.payload.userLocation,
-          showAlert: true,
-          alertType: 'success',
-          alertText: 'User Profile Updated!',
-        };
-      case UPDATE_USER_ERROR:
-        return {
-          ...state,
-          isLoading: false,
-          showAlert: true,
-          alertType: 'danger',
-          alertText: action.payload.msg,
-        };
-      case HANDLE_CHANGE:
-          return {
-            ...state,
-            [action.payload.name]: action.payload.value,
-          };
-      case GET_PROPERTIES_BEGIN:
-            return { ...state, isLoading: true, showAlert: false };
-      case GET_PROPERTIES_SUCCESS:
-            return {
-              ...state,
-              isLoading: false,
-              properties: action.payload.properties,
-              totalProperties: action.payload.propertiesLength,
-              numOfPages: action.payload.numOfPages,
-            };
-      case SET_EDIT_PROPERTY:
-        const propertyId = action.payload.id
-        const propertyToUpdate = state.properties.filter((p) => p._id === propertyId)
-        const {_id, price, owner, status, propertyLocation, propertyType } = propertyToUpdate[0]
-        
-        return {
-          ...state,
-          isEditing: true,
-          editPropertyId: _id,
-          owner, price, status, propertyLocation, propertyType
-        }
-      case DELETE_PROPERTY_BEGIN:
-        return { ...state, isLoading: true };
-      case DELETE_PROPERTY_SUCCESS:
-        return {
-          ...state,
-          isLoading: false,
-          showAlert: true,
-          alertType: 'danger',
-          alertText: action.payload.msg,
-        };
-      case EDIT_PROPERTY_BEGIN:
-        return {
-          ...state,
-          isLoading: true,
-        };
-      case EDIT_PROPERTY_SUCCESS:
-        return {
-          ...state,
-          isLoading: false,
-          showAlert: true,
-          alertType: 'success',
-          alertText: 'Property Updated!',
-        };
-      case EDIT_PROPERTY_ERROR:
-        return {
-          ...state,
-          isLoading: false,
-          showAlert: true,
-          alertType: 'danger',
-          alertText: action.payload.msg,
-        };
-      case SHOW_STATS_BEGIN:
-        return {
-          ...state,
-          isLoading: true,
-          showAlert: false,
-        };
-      case SHOW_STATS_SUCCESS:
-        return {
-          ...state,
-          isLoading: false,
-          stats: action.payload.stats,
-        };
+      return {
+        ...state,
+        isLoading: false,
+        user: action.payload.user,
+        token: action.payload.jwtToken,
+        userLocation: action.payload.userLocation,
+        propertyLocation: action.payload.userLocation,
+        showAlert: true,
+        alertType: "success",
+        alertText: "User Profile Updated!",
+      };
+    case UPDATE_USER_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "danger",
+        alertText: action.payload.msg,
+      };
+    case HANDLE_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+    case GET_PROPERTIES_BEGIN:
+      return { ...state, isLoading: true, showAlert: false };
+    case GET_PROPERTIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        properties: action.payload.properties,
+        totalProperties: action.payload.propertiesLength,
+        numOfPages: action.payload.numOfPages,
+      };
+    case SET_EDIT_PROPERTY:
+      const propertyId = action.payload.id;
+      const propertyToUpdate = state.properties.filter(
+        (p) => p._id === propertyId
+      );
+      const { _id, price, owner, status, propertyLocation, propertyType } =
+        propertyToUpdate[0];
+
+      return {
+        ...state,
+        isEditing: true,
+        editPropertyId: _id,
+        owner,
+        price,
+        status,
+        propertyLocation,
+        propertyType,
+      };
+    case DELETE_PROPERTY_BEGIN:
+      return { ...state, isLoading: true };
+    case DELETE_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "danger",
+        alertText: action.payload.msg,
+      };
+    case EDIT_PROPERTY_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case EDIT_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "success",
+        alertText: "Property Updated!",
+      };
+    case EDIT_PROPERTY_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "danger",
+        alertText: action.payload.msg,
+      };
+    case SHOW_STATS_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+        showAlert: false,
+      };
+    case SHOW_STATS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        stats: action.payload.stats,
+      };
+    case SEARCH_FILTER_CHANGE:
+      const name = action.payload.name;
+      const value = action.payload.value;
+      return {
+        ...state,
+        isLoading: true,
+        [name]: value,
+      };
+    case RESET_FILTERS:
+      return {
+        ...state,
+        search: "",
+        searchStatus: "all",
+        searchType: "all",
+        sort: "latest",
+      };
     default:
       return state;
   }
