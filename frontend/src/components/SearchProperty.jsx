@@ -41,7 +41,6 @@ const SearchProperty = () => {
 
       <FormRowSelect
         name="searchStatus"
-        value={searchStatus}
         defaultValue={searchStatus}
         changeHandler={changeHandler}
         list={["all", ...statusOptions]}
@@ -50,17 +49,16 @@ const SearchProperty = () => {
 
       {/* search by type */}
       <FormRowSelect
-        labelText="type"
         name="searchType"
-        value={searchType}
-        handleChange={changeHandler}
+        defaultValue={searchType}
+        changeHandler={changeHandler}
         list={["all", ...propertyTypeOptions]}
       />
       {/* sort */}
       <FormRowSelect
         name="sort"
-        value={sort}
-        handleChange={changeHandler}
+        defaultValue={sort}
+        changeHandler={changeHandler}
         list={sortOptions}
       />
       <button

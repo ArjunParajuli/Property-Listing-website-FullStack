@@ -29,6 +29,8 @@ import {
   EDIT_PROPERTY_ERROR,
   SHOW_STATS_SUCCESS,
   SHOW_STATS_BEGIN,
+  RESET_FILTERS,
+  CHANGE_PAGE,
 } from "./action";
 import axios from "axios";
 
@@ -227,8 +229,8 @@ export const AppProvider = ({ children }) => {
   }
 
   const getAllProperties = async() =>{
-    let url = `/properties?searchStatus=${searchStatus}&searchType=${searchType}&sort=${sort}`
-    if(search) url = url+`&search=${search}`
+    let url = `/properties?page=${state.page}&status=${state.searchStatus}&propertyType=${state.searchType}&sort=${state.sort}`
+    if(state.search) url = url+`&search=${state.search}`
     dispatch({type: GET_PROPERTIES_BEGIN})
     
     try{
@@ -337,7 +339,11 @@ export const AppProvider = ({ children }) => {
   }
 
 const resetFilters = () =>{
-  console.log("reset")
+  dispatch({ type: RESET_FILTERS });
+}
+
+const changePage = (newPage) =>{
+  dispatch({type:CHANGE_PAGE, payload:{newPage}})
 }
 
 
@@ -360,7 +366,8 @@ const resetFilters = () =>{
         deleteProperty,
         showStats,
         searchChangeHandler,
-        resetFilters
+        resetFilters,
+        changePage
       }}
     >
       {children}

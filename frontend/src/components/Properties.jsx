@@ -4,6 +4,7 @@ import { useAppContext } from '../context/AppContext';
 import Alert from './Alert';
 import Property from './Property';
 import Loading from './Loading';
+import PageBtnContainer from './PageBtnContainer';
 
 const Properties = () => {
     const {
@@ -19,7 +20,7 @@ const Properties = () => {
 
       useEffect(() => {
         getAllProperties();
-      }, [search, searchStatus, searchType, sort]);
+      }, [page, search, searchStatus, searchType, sort]);
 
       if(isLoading) return <Loading />
 
@@ -42,6 +43,8 @@ const Properties = () => {
               return <Property key={p._id} {...p} />
             })}
           </div>
+
+          <PageBtnContainer />
         </Wrapper>
       );
     };

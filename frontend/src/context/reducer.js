@@ -26,6 +26,7 @@ import {
   SHOW_STATS_SUCCESS,
   SEARCH_FILTER_CHANGE,
   RESET_FILTERS,
+  CHANGE_PAGE,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -228,6 +229,12 @@ export const reducer = (state, action) => {
         searchType: "all",
         sort: "latest",
       };
+    case CHANGE_PAGE:
+      const newPage = action.payload.newPage
+      return{
+        ...state,
+        page: newPage 
+      }
     default:
       return state;
   }
