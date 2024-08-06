@@ -107,6 +107,7 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user)); // we can only store strings in localStorage so convert obj to string
     localStorage.setItem("jwtToken", jwtToken);
     localStorage.setItem("location", location);
+    getAllProperties()
   };
 
   const removeFromLocalStorage = () => {
@@ -152,6 +153,7 @@ export const AppProvider = ({ children }) => {
 
       // store the user data, token & userLocation in localStorage
       storeInLocalStorage(user, jwtToken, location);
+      getAllProperties()
     } catch (err) {
       dispatch({
         type: LOGIN_USER_ERROR,
@@ -229,6 +231,7 @@ export const AppProvider = ({ children }) => {
   }
 
   const getAllProperties = async() =>{
+    console.log("Start")
     let url = `/properties?page=${state.page}&status=${state.searchStatus}&propertyType=${state.searchType}&sort=${state.sort}`
     if(state.search) url = url+`&search=${state.search}`
     dispatch({type: GET_PROPERTIES_BEGIN})
@@ -243,11 +246,10 @@ export const AppProvider = ({ children }) => {
           properties, propertiesLength, numOfPages
         },
       });
-      
+      console.log("Out of try")
     }catch(err){
-      console.log(err)
+      logoutUser()
     }
-    console.log(state.properties)
   };
 
 // set the currently editing property's details in our state

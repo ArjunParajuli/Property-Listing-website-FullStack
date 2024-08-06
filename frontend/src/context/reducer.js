@@ -62,7 +62,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload.user,
-        jwtToken: action.payload.jwtToken,
+        token: action.payload.jwtToken,
         userLocation: action.payload.userLocation,
         propertyLocation: action.payload.userLocation,
         isLoading: false,
@@ -88,7 +88,7 @@ export const reducer = (state, action) => {
         ...state,
         isLoading: false,
         user: action.payload.user,
-        jwtToken: action.payload.jwtToken,
+        token: action.payload.jwtToken,
         userLocation: action.payload.userLocation,
         showAlert: true,
         alertType: "success",

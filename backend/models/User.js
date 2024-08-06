@@ -38,7 +38,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         default: 'my city',
-    }
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user',
+      },
 })
 
 // middleware that runs before the document is saved in the db

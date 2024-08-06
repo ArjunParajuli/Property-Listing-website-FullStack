@@ -16,6 +16,10 @@ const registerController = async(req, res, next) =>{
 
     // --- use this code instead of above one ---
     // used import ‘express-async-error’ in server.js, so no need to write catch block now.
+    
+    
+    const isFirstAccount = (await User.countDocuments())===0;
+    req.body.role = isFirstAccount ? 'admin' : 'user';
     const {name, email, password} = req.body;
     if(!name || !email || !password) {
         throw new BadRequestError("Please provide all fields!")  // throw custom error to the errorHandler middleware 
@@ -26,7 +30,7 @@ const registerController = async(req, res, next) =>{
         throw new BadRequestError("Email already exists!")
     }
 
-    const user = await User.create({name, email, password})
+    const user = await User.create(req.body)
     const jwtToken = user.createJWT(); // calling the instance func that returns us a jwt token for this particular user
     res.status(StatusCodes.CREATED).json({ user:{name: user.name, lastName:user.lastName, email: user.email, location: user.location}, jwtToken, location:user.location}) // sending the user data and jwt token to the client
 }
@@ -56,6 +60,16 @@ const loginController = async(req, res) => {
     const jwtToken = user.createJWT();
     // dont send the pw in response(frontend), so mark the pw field as undefined
     user.password = undefined;
+
+    // send cookie to the client
+    const oneDay = 1000 * 60 * 60 * 24; // 1000ms=1s so 1sec * 60 = 1 min & so on
+    res.Cookie('jwtToken', jwtToken, {
+        httpOnly: true,
+        expires: new Date(Date.now()+oneDay),
+        secure: process.env.NODE_ENV==='production'
+    })
+
+
     res.status(StatusCodes.ACCEPTED).json({user, jwtToken, location: user.location})
     
 }

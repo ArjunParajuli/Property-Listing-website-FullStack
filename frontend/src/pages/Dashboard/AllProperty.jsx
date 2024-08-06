@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SearchProperty from '../../components/SearchProperty'
 import Properties from '../../components/Properties'
 
