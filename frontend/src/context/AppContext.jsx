@@ -31,27 +31,30 @@ import {
   SHOW_STATS_BEGIN,
   RESET_FILTERS,
   CHANGE_PAGE,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
 } from "./action";
 import axios from "axios";
 
 // Create a context
 export const AppContext = createContext();
 
-const user = localStorage.getItem("user");
-const jwtToken = localStorage.getItem("jwtToken");
-const userLocation = localStorage.getItem("location");
+/* No need to store in local storage bcoz we used cookie */
+// const user = localStorage.getItem("user");
+// const jwtToken = localStorage.getItem("jwtToken");
+// const userLocation = localStorage.getItem("location");
 
 // editPropertyId, owner, price, propertyLocation, propertyType 
 // either store currently editing property's info or store info of property to be added
 export const initialState = {
+  userLoading: true, // used when getCurrentUser is being called, so we set it to true by default
   isLoading: false,
   showAlert: false,
   alertText: "",
   alertType: "",
-  user: user ? JSON.parse(user) : null,
-  token: jwtToken || null,
-  userLocation: userLocation || "",
-  propertyLocation: userLocation || "",
+  user: null,
+  userLocation: "",
+  propertyLocation: "",
   showSidebar: false,
   isEditing: false,
   editPropertyId: '',
@@ -81,9 +84,10 @@ export const AppProvider = ({ children }) => {
   // axios instance
   const authFetch = axios.create({
     baseURL: "/api/v1",
-    headers: {
-      Authorization: `Bearer ${state.token}`,
-    },
+    /* used cookie so no need to send token now */
+    // headers: {
+    //   Authorization: `Bearer ${state.token}`,
+    // },
   });
 
   // update showAlert & show the alert message
@@ -103,34 +107,34 @@ export const AppProvider = ({ children }) => {
     }, 3000)
   }
 
-  const storeInLocalStorage = (user, jwtToken, location) => {
-    localStorage.setItem("user", JSON.stringify(user)); // we can only store strings in localStorage so convert obj to string
-    localStorage.setItem("jwtToken", jwtToken);
-    localStorage.setItem("location", location);
-    getAllProperties()
-  };
+  // const storeInLocalStorage = (user, jwtToken, location) => {
+  //   localStorage.setItem("user", JSON.stringify(user)); // we can only store strings in localStorage so convert obj to string
+  //   localStorage.setItem("jwtToken", jwtToken);
+  //   localStorage.setItem("location", location);
+  //   getAllProperties()
+  // };
 
-  const removeFromLocalStorage = () => {
-    // for logoutUser
-    localStorage.removeItem("user");
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("location");
-  };
+  // const removeFromLocalStorage = () => {
+  //   // for logoutUser
+  //   localStorage.removeItem("user");
+  //   localStorage.removeItem("jwtToken");
+  //   localStorage.removeItem("location");
+  // };
 
   // register a new user (send user data)
   const registerUser = async (newUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
       const response = await axios.post("/api/v1/auth/register", newUser);
-      const { user, jwtToken, location } = response.data;
-      console.log(user, jwtToken, location);
+      const { user, location } = response.data;
+      console.log(user, location);
       dispatch({
         type: REGISTER_USER_SUCCESS,
-        payload: { user, jwtToken, location },
+        payload: { user, location },
       });
 
       // store the user data, token & userLocation in localStorage
-      storeInLocalStorage(user, jwtToken, location);
+      // storeInLocalStorage(user, jwtToken, location);
     } catch (err) {
       dispatch({
         type: REGISTER_USER_ERROR,
@@ -144,15 +148,15 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
       const response = await axios.post("/api/v1/auth/login", newUser);
-      const { user, jwtToken, location } = response.data;
+      const { user, location } = response.data;
 
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: { user, jwtToken, location },
+        payload: { user, location },
       });
 
       // store the user data, token & userLocation in localStorage
-      storeInLocalStorage(user, jwtToken, location);
+      // storeInLocalStorage(user, jwtToken, location);
       getAllProperties()
     } catch (err) {
       dispatch({
@@ -169,17 +173,17 @@ export const AppProvider = ({ children }) => {
 
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
-    removeFromLocalStorage();
+    // removeFromLocalStorage();
   };
 
   const updateUser = async (userData) => {
     dispatch({type: UPDATE_USER_BEGIN})
     try{
       const { data } = await authFetch.patch("/auth/update-user", userData);
-      const { user, jwtToken, userLocation } = data;
+      const { user, userLocation } = data;
 
-      dispatch({type: UPDATE_USER_SUCCESS, payload: {user, jwtToken, userLocation}})
-      storeInLocalStorage(user, jwtToken, location);
+      dispatch({type: UPDATE_USER_SUCCESS, payload: {user, userLocation}})
+      // storeInLocalStorage(user, jwtToken, location);
     } catch (err) {
       dispatch({type: UPDATE_USER_ERROR, payload: {msg: err.response.data.msg}})
       console.log(err);
@@ -321,7 +325,6 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: SHOW_STATS_BEGIN });
     try {
       const { data } = await authFetch('/properties/stats');
-      console.log(data.defaultStats)
       dispatch({
         type: SHOW_STATS_SUCCESS,
         payload: {
@@ -347,6 +350,23 @@ const resetFilters = () =>{
 const changePage = (newPage) =>{
   dispatch({type:CHANGE_PAGE, payload:{newPage}})
 }
+
+const getCurrentUser = async() =>{
+  dispatch({type: GET_CURRENT_USER_BEGIN})
+  try{
+    const { data } = await authFetch.get('/auth/getCurrentUser');
+    const {user, location} = data;
+    dispatch({type: GET_CURRENT_USER_SUCCESS, payload: {user, location}})
+  }catch(err){
+    console.log(err)
+    logoutUser();
+  }
+}
+
+// run whenever app loads for the first time / refreshes. Using this as we're not storing the user details in local storage anymore
+useEffect(()=>{
+  getCurrentUser();
+}, [])
 
 
   return (

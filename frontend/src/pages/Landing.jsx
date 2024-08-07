@@ -29,7 +29,7 @@ const Landing = () => {
         </p>
 
         <button style={{backgroundColor: 'var(--primary-500)', color: 'white', marginRight: '2rem'}} className="btn mr-4" onClick={()=>navigate('/register')}>Register</button>
-        <button style={{backgroundColor: 'var(--primary-500)', color: 'white'}} className="btn" onClick={()=>navigate('/register')}>Login / Demo App</button>
+        <button style={{backgroundColor: 'var(--primary-500)', color: 'white'}} className="btn" onClick={()=>navigate('/register')}>Login / Test the App</button>
 
         </Col>
 

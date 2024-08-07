@@ -2,6 +2,7 @@ import User from "../models/User.js"
 import {StatusCodes} from 'http-status-codes';
 import BadRequestError from "../errors/badRequestError.js";
 import UnAuthenticatedError from "../errors/unAuthenticatedError.js";
+import createCookie from "../utils/createCookie.js";
 
 
 const registerController = async(req, res, next) =>{
@@ -32,7 +33,9 @@ const registerController = async(req, res, next) =>{
 
     const user = await User.create(req.body)
     const jwtToken = user.createJWT(); // calling the instance func that returns us a jwt token for this particular user
-    res.status(StatusCodes.CREATED).json({ user:{name: user.name, lastName:user.lastName, email: user.email, location: user.location}, jwtToken, location:user.location}) // sending the user data and jwt token to the client
+    // create cookie which is sent to the client
+    createCookie({res, jwtToken})
+    res.status(StatusCodes.CREATED).json({ user:{name: user.name, lastName:user.lastName, email: user.email, location: user.location}, location:user.location}) // sending the user data and jwt token to the client
 }
 
 const loginController = async(req, res) => {
@@ -60,17 +63,11 @@ const loginController = async(req, res) => {
     const jwtToken = user.createJWT();
     // dont send the pw in response(frontend), so mark the pw field as undefined
     user.password = undefined;
+    
+    // create cookie which is sent to the client
+    createCookie({res, jwtToken})
 
-    // send cookie to the client
-    const oneDay = 1000 * 60 * 60 * 24; // 1000ms=1s so 1sec * 60 = 1 min & so on
-    res.Cookie('jwtToken', jwtToken, {
-        httpOnly: true,
-        expires: new Date(Date.now()+oneDay),
-        secure: process.env.NODE_ENV==='production'
-    })
-
-
-    res.status(StatusCodes.ACCEPTED).json({user, jwtToken, location: user.location})
+    res.status(StatusCodes.ACCEPTED).json({user, location: user.location})
     
 }
 
@@ -86,11 +83,18 @@ const updateUserController = async(req, res) => {
 
         const updatedUser = await userData.save();
         const jwtToken = updatedUser.createJWT();  // update the jwtToken aslo, not compulsory
-        res.status(StatusCodes.CREATED).json({ user:{name: updatedUser.name, lastName:updatedUser.lastName, email: updatedUser.email, location: updatedUser.location}, jwtToken, location:updatedUser.location}) // sending the user data and jwt token to the client
+        // create cookie which is sent to the client
+        createCookie({res, jwtToken})
+        res.status(StatusCodes.CREATED).json({ user:{name: updatedUser.name, lastName:updatedUser.lastName, email: updatedUser.email, location: updatedUser.location}, location:updatedUser.location}) // sending the user data and jwt token to the client
     }catch(err){
         res.status(500).send("Internal Server Error");
     }
     
 }
 
-export {registerController, loginController, updateUserController}
+const getCurrentUser = async(req, res) =>{
+    const user = await User.findOne({_id: req.user.userId});
+    res.status(StatusCodes.OK).json({user, location: user.location})
+}
+
+export {registerController, loginController, updateUserController, getCurrentUser}

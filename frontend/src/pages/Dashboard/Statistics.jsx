@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import Loading from '../../components/Loading';
 import { MdOutlinePendingActions, MdOutlineList, MdOutlinePriceCheck } from 'react-icons/md';
-import { GrFormSchedule, GrLocation } from 'react-icons/gr';
+import { GrFormSchedule } from 'react-icons/gr';
 import { ImCross } from 'react-icons/im';
 import StatItem from '../../components/StatItem';
 import StatsInfo from '../../components/StatsInfo';
@@ -95,7 +95,6 @@ const Statistics = () => {
     },
   ];
 
-  console.log("In statistics")
 
   return (
     <div className="grid grid-cols-1 gap-4">

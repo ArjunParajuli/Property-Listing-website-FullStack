@@ -16,8 +16,11 @@ import pageNotFound from './middlewares/pageNotFound.js';
 import errorHandlerMiddleWare from './middlewares/errorHandler.js';
 import authenticateUser from './middlewares/authenticateUser.js';
 
+import cookieParser from 'cookie-parser';
+
 // middleware to parse json body(to get data from request body/passed through post method)
 app.use(express.json());
+app.use(cookieParser());
 
 // middleware to mount the auth & properties API routes
 app.use("/api/v1/auth", authRoutes);

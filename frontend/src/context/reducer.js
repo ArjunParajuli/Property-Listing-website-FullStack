@@ -27,6 +27,8 @@ import {
   SEARCH_FILTER_CHANGE,
   RESET_FILTERS,
   CHANGE_PAGE,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
 } from "./action";
 import { initialState } from "./AppContext";
 
@@ -62,7 +64,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload.user,
-        token: action.payload.jwtToken,
+        // token: action.payload.jwtToken,
         userLocation: action.payload.userLocation,
         propertyLocation: action.payload.userLocation,
         isLoading: false,
@@ -88,7 +90,7 @@ export const reducer = (state, action) => {
         ...state,
         isLoading: false,
         user: action.payload.user,
-        token: action.payload.jwtToken,
+        // token: action.payload.jwtToken,
         userLocation: action.payload.userLocation,
         showAlert: true,
         alertType: "success",
@@ -111,9 +113,8 @@ export const reducer = (state, action) => {
       return {
         ...initialState,
         user: null,
-        token: null,
-        userLocation: "",
-        propertyLocation: "",
+        // token: null,
+        userLoading: false
       };
     case UPDATE_USER_BEGIN:
       return { ...state, isLoading: true };
@@ -122,7 +123,7 @@ export const reducer = (state, action) => {
         ...state,
         isLoading: false,
         user: action.payload.user,
-        token: action.payload.jwtToken,
+        // token: action.payload.jwtToken,
         userLocation: action.payload.userLocation,
         propertyLocation: action.payload.userLocation,
         showAlert: true,
@@ -234,6 +235,20 @@ export const reducer = (state, action) => {
       return{
         ...state,
         page: newPage 
+      }
+    case GET_CURRENT_USER_BEGIN:
+      return{
+        ...state,
+        userLoading: true,
+        showAlert: false
+      };
+    case GET_CURRENT_USER_SUCCESS:
+      return {
+        ...state,
+        userLoading: false,
+        user: action.payload.user,
+        userLocation: action.payload.location,
+        propertyLocation: action.payload.location,
       }
     default:
       return state;
