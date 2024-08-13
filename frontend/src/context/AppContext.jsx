@@ -171,7 +171,8 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: SHOW_SIDEBAR });
   };
 
-  const logoutUser = () => {
+  const logoutUser = async() => {
+    await authFetch.get('/auth/logout');
     dispatch({ type: LOGOUT_USER });
     // removeFromLocalStorage();
   };
@@ -337,7 +338,7 @@ export const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-// search input fields 
+// search input filter fields 
   const searchChangeHandler = ({name, value}) =>{
     console.log(name, value)
     dispatch({type: 'SEARCH_FILTER_CHANGE', payload:{ name, value} })

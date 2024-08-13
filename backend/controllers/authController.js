@@ -97,4 +97,13 @@ const getCurrentUser = async(req, res) =>{
     res.status(StatusCodes.OK).json({user, location: user.location})
 }
 
-export {registerController, loginController, updateUserController, getCurrentUser}
+const logout = async(req, res) =>{
+    // set the cookie named jwtToken a value of 'logout' and expire this cookie immediately. 
+    res.cookie('jwtToken', 'logout', { 
+        httpOnly: true,
+        expires: new Date(Date.now()),
+      });
+      res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
+}
+
+export {registerController, loginController, updateUserController, getCurrentUser, logout}
