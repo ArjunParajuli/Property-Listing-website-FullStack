@@ -41,9 +41,10 @@ const AddProperty = () => {
 
   const changeHandler = (e) => {
     handleChangeInContext(e.target.value, e.target.name)
+    // console.log(e.target.value, e.target.name)
   }
 
-  console.log("price", price)
+  // console.log("price", price)
 
   return (
     <Wrapper>

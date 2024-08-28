@@ -195,14 +195,16 @@ export const AppProvider = ({ children }) => {
   // for handling change in inputs of AddProperty comp
   const handleChangeInContext = (value, name) =>{
     dispatch({type: HANDLE_CHANGE, payload: {name: name, value: value}})
+    // console.log(value, name)
   }
 
   const createProperty = async() =>{
     dispatch({ type: CREATE_PROPERTY_BEGIN });
     try {
-      const { owner, propertyLocation, propertyType, status } = state;
+      const { owner, price, propertyLocation, propertyType, status } = state;
       const res = await authFetch.post('/properties', {
         owner,
+        price,
         propertyLocation,
         propertyType,
         status,

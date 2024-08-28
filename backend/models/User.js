@@ -44,6 +44,8 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user',
       },
+    avatar: String,
+    avatarPublicId: String,
 })
 
 // middleware that runs before the document is saved in the db

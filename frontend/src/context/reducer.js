@@ -14,6 +14,9 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
+  CREATE_PROPERTY_BEGIN,
+  CREATE_PROPERTY_SUCCESS,
+  CREATE_PROPERTY_ERROR,
   GET_PROPERTIES_BEGIN,
   GET_PROPERTIES_SUCCESS,
   SET_EDIT_PROPERTY,
@@ -143,6 +146,26 @@ export const reducer = (state, action) => {
         ...state,
         [action.payload.name]: action.payload.value,
       };
+    case CREATE_PROPERTY_BEGIN:
+      return {
+          ...state, isLoading: true 
+      };
+    case CREATE_PROPERTY_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          // showAlert: true,
+          // alertType: 'success',
+          // alertText: 'New Property Listed!',
+        };
+    case CREATE_PROPERTY_ERROR:
+      return {
+        ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
+      }  
     case GET_PROPERTIES_BEGIN:
       return { ...state, isLoading: true, showAlert: false };
     case GET_PROPERTIES_SUCCESS:

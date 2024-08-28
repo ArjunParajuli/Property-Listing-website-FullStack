@@ -8,7 +8,7 @@ const propertySchema = new mongoose.Schema(
       maxlength: 50,
     },
     price: {
-      type: Number,
+      type: String,
       required: [true, 'Please provide price'],
     },
     status: {
