@@ -10,29 +10,20 @@ const Profile = () => {
     useAppContext();
 
   const [userData, setUserData] = useState({
-    name: user?.name,
-    email: user?.email,
-    location: user?.location,
-    lastName: user?.lastName,
-    avatar: null,  // Add avatar to the state
+    name: user?.name || "",  // Ensure empty string if user data is undefined
+    email: user?.email || "",
+    location: user?.location || "",
+    lastName: user?.lastName || "",
+    avatar: null,
   });
-
-  // const changeHandler = (e) => {
-  //   setUserData((prev) => {
-  //     return {
-  //       ...prev,
-  //       [e.target.name]: e.target.value,
-  //     };
-  //   });
-  //   console.log(userData);
-  // };
 
   const changeHandler = (e) => {
     const { name, value, files } = e.target;
     setUserData((prev) => ({
       ...prev,
-      [name]: files ? files[0] : value, // Handle file input
+      [name]: files ? files[0] : value,
     }));
+
   };
 
   const submitHandler = (e) => {
@@ -47,7 +38,6 @@ const Profile = () => {
       return;
     }
 
-    // Prepare form data to include the image file
     const formData = new FormData();
     for (const key in userData) {
       formData.append(key, userData[key]);
@@ -58,12 +48,11 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <form className="form" onSubmit={submitHandler} encType='multipart/form-data'>
+      <form className="form" onSubmit={submitHandler} encType="multipart/form-data">
         <h3>My Profile</h3>
         {showAlert && <Alert />}
         <div className="form-center">
           
-          {/* image */}
           <div className="form-row">
             <label htmlFor="avatar" className="form-label">
               Select an image file (max 0.5 MB)
@@ -81,28 +70,28 @@ const Profile = () => {
           <FormRow
             type="text"
             name="name"
-            defaultValue={userData.name}
+            value={userData.name}  // Ensure value is passed from state
             changeHandler={changeHandler}
           />
 
           <FormRow
             type="email"
             name="email"
-            defaultValue={userData.email}
+            value={userData.email}
             changeHandler={changeHandler}
           />
 
           <FormRow
             type="text"
             name="lastName"
-            defaultValue={userData.lastName}
+            value={userData.lastName}
             changeHandler={changeHandler}
           />
 
           <FormRow
             type="text"
             name="location"
-            defaultValue={userData.location}
+            value={userData.location}
             changeHandler={changeHandler}
           />
 

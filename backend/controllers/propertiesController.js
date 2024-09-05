@@ -31,6 +31,8 @@ const getAllPropertiesController = async (req, res) => {
   const { status, propertyType, search, sort } = req.query;
   let queryObj = { createdBy: req.user.userId }; 
   
+  // console.log(req.query)
+
   // if status is pending/meeting/declined then add it in the query 
   if(status && status !== 'all'){
     queryObj.status = status

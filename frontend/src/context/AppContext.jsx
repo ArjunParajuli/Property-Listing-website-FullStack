@@ -144,7 +144,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const loginUser = async (newUser) => {
+  const loginUser = async(newUser) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
       const response = await axios.post("/api/v1/auth/login", newUser);
@@ -180,8 +180,9 @@ export const AppProvider = ({ children }) => {
   const updateUser = async (userData) => {
     dispatch({type: UPDATE_USER_BEGIN})
     try{
-      const { data } = await authFetch.patch("/auth/update-user", userData);
-      const { user, userLocation } = data;
+      const res = await authFetch.patch("/auth/update-user", userData);
+      console.log(res)
+      const { user, userLocation } = res.data;
 
       dispatch({type: UPDATE_USER_SUCCESS, payload: {user, userLocation}})
       // storeInLocalStorage(user, jwtToken, location);
@@ -238,7 +239,7 @@ export const AppProvider = ({ children }) => {
   }
 
   const getAllProperties = async() =>{
-    console.log("Start")
+   
     let url = `/properties?page=${state.page}&status=${state.searchStatus}&propertyType=${state.searchType}&sort=${state.sort}`
     if(state.search) url = url+`&search=${state.search}`
     dispatch({type: GET_PROPERTIES_BEGIN})
@@ -247,14 +248,16 @@ export const AppProvider = ({ children }) => {
       const res = await authFetch.get(url)
       console.log(res.data)
       const { properties, propertiesLength, numOfPages } = res.data;
+       console.log("Start")
       dispatch({
         type: GET_PROPERTIES_SUCCESS,
         payload: {
           properties, propertiesLength, numOfPages
         },
       });
-      console.log("Out of try")
+      // console.log("Out of try")
     }catch(err){
+      console.log("Catch", err)
       logoutUser()
     }
   };

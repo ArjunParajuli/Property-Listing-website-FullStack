@@ -3,6 +3,8 @@ import {StatusCodes} from 'http-status-codes';
 import BadRequestError from "../errors/badRequestError.js";
 import UnAuthenticatedError from "../errors/unAuthenticatedError.js";
 import createCookie from "../utils/createCookie.js";
+import {promises as fs} from 'fs';
+import {v2 as cloudinary} from 'cloudinary';
 
 
 const registerController = async(req, res, next) =>{
@@ -71,26 +73,120 @@ const loginController = async(req, res) => {
     
 }
 
-const updateUserController = async(req, res) => {
-    try{
+const updateUserController = async (req, res) => {
+    try {
         const userId = req.user.userId;
-        const {name, email, lastName, location} = req.body;
-        const userData = await User.findOne({_id: userId})
+        const { name, email, lastName, location } = req.body;
+        const userData = await User.findOne({ _id: userId });
+        
         userData.name = name;
         userData.email = email;
         userData.lastName = lastName;
         userData.location = location;
 
+        // console.log(req.file)
+
+        // Upload image to Cloudinary and delete the local file
+        if (req.file) {
+
+        // If the user had a previous avatar, remove it from Cloudinary
+            if (userData.avatarPublicId) {
+                await cloudinary.uploader.destroy(userData.avatarPublicId);
+            }
+
+            // Upload the new avatar to Cloudinary
+            const response = await cloudinary.uploader.upload(req.file.path);
+
+            // Update user's avatar and avatarPublicId fields
+            userData.avatar = response.secure_url;
+            userData.avatarPublicId = response.public_id;
+
+             // Delete the local file now as we uploaded it to cloudinary
+             await fs.unlink(req.file.path);
+        }
+
         const updatedUser = await userData.save();
-        const jwtToken = updatedUser.createJWT();  // update the jwtToken aslo, not compulsory
-        // create cookie which is sent to the client
-        createCookie({res, jwtToken})
-        res.status(StatusCodes.CREATED).json({ user:{name: updatedUser.name, lastName:updatedUser.lastName, email: updatedUser.email, location: updatedUser.location}, location:updatedUser.location}) // sending the user data and jwt token to the client
-    }catch(err){
+
+
+        // Optionally update the JWT token
+        const jwtToken = updatedUser.createJWT();
+
+        // Create a cookie with the updated JWT token
+        createCookie({ res, jwtToken });
+
+        // Send updated user data back to the client
+        res.status(StatusCodes.OK).json({
+            user: {
+                name: updatedUser.name,
+                lastName: updatedUser.lastName,
+                email: updatedUser.email,
+                location: updatedUser.location,
+                avatar: updatedUser.avatar
+            },
+            location: updatedUser.location
+        });
+    } catch (err) {
         res.status(500).send("Internal Server Error");
     }
+};
+
+
+    // const updateUserController = async(req, res) => {
+    //     try {
+    //         console.log(req.file)
+    //         const userId = req.user.userId;
+    //         const { name, email, lastName, location } = req.body;
     
-}
+    //         const userData = await User.findOne({_id: userId});     // Fetch existing user data
+
+    //         // Update user details
+    //         userData.name = name;
+    //         userData.email = email;
+    //         userData.lastName = lastName;
+    //         userData.location = location;
+    
+    //         // Handle avatar update
+    //         if (req.file) {
+    //             // Upload new avatar to Cloudinary
+    //             const response = await cloudinary.v2.uploader.upload(req.file.path);
+    //             await fs.unlink(req.file.path); // Delete the local file
+    
+    //             // If the user already had an avatar, delete the old one from Cloudinary
+    //             if (userData.avatarPublicId) {
+    //                 await cloudinary.v2.uploader.destroy(userData.avatarPublicId);
+    //             }
+                
+    //             // Assign the new avatar URL and public ID to userData
+    //             userData.avatar = response.secure_url;
+    //             userData.avatarPublicId = response.public_id;
+    
+    //         }
+    
+    //         // Save the updated user data
+    //         const updatedUser = await userData.save();
+    
+    //         // (Optional) create a new JWT token
+    //         const jwtToken = updatedUser.createJWT();
+    
+    //         // Create a cookie with the JWT token
+    //         createCookie({ res, jwtToken });
+    
+    //         // Respond with the updated user data
+    //         res.status(StatusCodes.OK).json({
+    //             user: {
+    //                 name: updatedUser.name,
+    //                 lastName: updatedUser.lastName,
+    //                 email: updatedUser.email,
+    //                 location: updatedUser.location,
+    //                 avatar: updatedUser.avatar // Include the avatar URL if updated
+    //             },
+    //             location: updatedUser.location
+    //         });
+    //     } catch (err) {
+    //         res.status(500).send("Internal Server Error");
+    //     }
+    // };
+    
 
 const getCurrentUser = async(req, res) =>{
     const user = await User.findOne({_id: req.user.userId});

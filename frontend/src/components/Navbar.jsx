@@ -5,7 +5,7 @@ import { useAppContext } from '../context/AppContext';
 
 const Navbar = () => {
     const [profileClicked, setProfileClicked] = useState(false);
-    const {toggleSidebar, logoutUser} = useAppContext();
+    const {user, toggleSidebar, logoutUser} = useAppContext();
   return (
     <Wrapper>
         <div className='nav-center'>
@@ -20,7 +20,8 @@ const Navbar = () => {
 
         <div className='btn-container'>
             <button className='btn' onClick={()=>setProfileClicked(!profileClicked)}>
-                <FaRegUserCircle className='h-6 w-6' />
+                {user.avatar ? <img src={user.avatar} alt="profile-pic" className='h-9 w-9 rounded-full' /> : <FaRegUserCircle className='h-6 w-6' />}
+                {/* <FaRegUserCircle className='h-6 w-6' /> */}
             </button>
             <div className={profileClicked ? "dropdown show-dropdown" : "dropdown"}>
                 <button className='dropdown-btn'>Profile</button>
