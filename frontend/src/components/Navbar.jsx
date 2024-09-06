@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Wrapper from '../wrappers/navbar'
 import { FaAlignJustify, FaRegUserCircle } from "react-icons/fa";
 import { useAppContext } from '../context/AppContext';
+import {Link} from 'react-router-dom';
 
 const Navbar = () => {
     const [profileClicked, setProfileClicked] = useState(false);
@@ -20,11 +21,10 @@ const Navbar = () => {
 
         <div className='btn-container'>
             <button className='btn' onClick={()=>setProfileClicked(!profileClicked)}>
-                {user.avatar ? <img src={user.avatar} alt="profile-pic" className='h-9 w-9 rounded-full' /> : <FaRegUserCircle className='h-6 w-6' />}
-                {/* <FaRegUserCircle className='h-6 w-6' /> */}
+                {user.avatar ? <img src={user.avatar} alt="profile-pic" className='h-8 w-8 rounded-full' /> : <FaRegUserCircle className='h-6 w-6' />}
             </button>
             <div className={profileClicked ? "dropdown show-dropdown" : "dropdown"}>
-                <button className='dropdown-btn'>Profile</button>
+                <Link to='/profile'><button className='dropdown-btn'>Profile</button></Link>
                 <button className='dropdown-btn' onClick={logoutUser}>Logout</button>
             </div>
         </div>

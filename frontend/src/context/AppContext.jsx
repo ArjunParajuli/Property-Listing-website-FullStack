@@ -60,6 +60,7 @@ export const initialState = {
   editPropertyId: '',
   owner: '',
   price: 0,
+  property_img: null,
   propertyTypeOptions: ['rent', 'buy'],
   propertyType: 'rent',
   statusOptions: ['meeting', 'declined', 'pending'],
@@ -194,22 +195,28 @@ export const AppProvider = ({ children }) => {
   };
 
   // for handling change in inputs of AddProperty comp
-  const handleChangeInContext = (value, name) =>{
-    dispatch({type: HANDLE_CHANGE, payload: {name: name, value: value}})
+  const handleChangeInContext = (name, value, files) =>{
+    dispatch({type: HANDLE_CHANGE, payload: {name, value, files}})
     // console.log(value, name)
   }
 
   const createProperty = async() =>{
     dispatch({ type: CREATE_PROPERTY_BEGIN });
     try {
-      const { owner, price, propertyLocation, propertyType, status } = state;
-      const res = await authFetch.post('/properties', {
-        owner,
-        price,
-        propertyLocation,
-        propertyType,
-        status,
-      });
+      const { owner, price, propertyLocation, propertyType, status, property_img } = state;
+      
+      // Create a new FormData object
+      const formData = new FormData();
+      formData.append('owner', owner);
+      formData.append('price', price);
+      formData.append('propertyLocation', propertyLocation);
+      formData.append('propertyType', propertyType);
+      formData.append('status', status);
+
+      // Append the property image
+      formData.append('property_img', property_img);
+
+      const res = await authFetch.post('/properties', formData);
       
       console.log(res)
       if(res?.status === 201){
@@ -271,14 +278,20 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_PROPERTY_BEGIN });
 
     try {
-      const { owner, price, propertyLocation, propertyType, status } = state;
-      await authFetch.patch(`/properties/${state.editPropertyId}`, {
-        owner,
-        price,
-        propertyLocation,
-        propertyType,
-        status,
-      });
+      const { owner, price, propertyLocation, propertyType, status, property_img } = state;
+
+      // Create a new FormData object
+      const formData = new FormData();
+      formData.append('owner', owner);
+      formData.append('price', price);
+      formData.append('propertyLocation', propertyLocation);
+      formData.append('propertyType', propertyType);
+      formData.append('status', status);
+
+      // Append the property image
+      formData.append('property_img', property_img);
+
+      await authFetch.patch(`/properties/${state.editPropertyId}`, formData);
       toast.success('Property Updated Successfully', {
         position: "top-center",
         autoClose: 5000,

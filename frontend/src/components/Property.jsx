@@ -17,6 +17,7 @@ const Property = ({
     propertyType,
     createdAt,
     status,
+    avatar
 }) => {
     let date = moment(createdAt)
     date = date.format('MMM Do, YYYY')
@@ -26,7 +27,7 @@ const Property = ({
     return (
         <Wrapper>
             <div className='image-container'>
-                <img src={propertyImg} alt={owner} className='property-image' />
+                <img src={avatar ? avatar : propertyImg} alt={owner} className='property-image' />
             </div>
             <div className='info'>
                 <h5>{owner}</h5>

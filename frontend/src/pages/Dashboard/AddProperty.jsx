@@ -40,7 +40,8 @@ const AddProperty = () => {
   }
 
   const changeHandler = (e) => {
-    handleChangeInContext(e.target.value, e.target.name)
+    const {name, value, files} = e.target;
+    handleChangeInContext(name, value, files)
     // console.log(e.target.value, e.target.name)
   }
 
@@ -48,9 +49,24 @@ const AddProperty = () => {
 
   return (
     <Wrapper>
-      <form className='form'>
+      <form className='form' encType="multipart/form-data">
         <h3>{isEditing ? 'edit property' : 'add property'}</h3>
         {showAlert && <Alert />}
+
+        <div className="form-row">
+            <label htmlFor="avatar" className="form-label">
+              Select an image file (max 0.5 MB)
+            </label>
+            <input
+              type="file"
+              id="avatar"
+              name="property_img"
+              className="form-input"
+              accept="image/*"
+              onChange={changeHandler}
+            />
+          </div>
+
         <div className='form-center'>
           {/* owner */}
           <FormRow

@@ -144,7 +144,8 @@ export const reducer = (state, action) => {
     case HANDLE_CHANGE:
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
+        [action.payload.name]:  action.payload.value,
+        property_img: action.payload.files && action.payload.files[0]
       };
     case CREATE_PROPERTY_BEGIN:
       return {

@@ -4,6 +4,9 @@ import Property from "../models/Property.js";
 import NotFoundError from "../errors/notFoundError.js";
 import checkPermissions from "../utils/checkPermissions.js";
 import mongoose from "mongoose";
+import cloudinary from 'cloudinary';
+import {promises as fs} from 'fs';
+
 
 const createPropertyController = async (req, res) => {
   const { owner, propertyLocation } = req.body;
@@ -11,6 +14,20 @@ const createPropertyController = async (req, res) => {
   if (!owner || !propertyLocation)
     throw new BadRequestError("Enter both Owner and Property Location!");
   req.body.createdBy = req.user.userId;
+
+
+  if(req.file){
+    // console.log(req.file)
+    const response = await cloudinary.v2.uploader.upload(req.file.path);
+    // console.log(response)
+
+    req.body.avatar = response.secure_url;
+    req.body.avatarPublicId = response.public_id
+
+    // remove locally stored file now
+    await fs.unlink(req.file.path)
+  }
+
   const property = await Property.create(req.body);
   res.status(StatusCodes.CREATED).json(property);
 };
@@ -87,18 +104,47 @@ const updatePropertyController = async (req, res) => {
   const property = await Property.findOne({ _id: propertyId });
   if (!property) throw new NotFoundError("Property not found!");
 
-  // check permissions
+  // check permissions(authorization)
   checkPermissions(req.user, property.createdBy);
+
+  const { owner, price, propertyLocation, propertyType, status } = req.body;
+  property.owner = owner;
+  property.price = price;
+  property.propertyLocation = propertyLocation;
+  property.propertyType = propertyType;
+  property.status = status;
+
+if(req.file){
+  console.log(req.file)
+
+  // delete previous image from cloudinary
+  if(property.avatarPublicId){
+    await cloudinary.v2.uploader.destroy(property.avatarPublicId)
+  }
+
+  // upload new image to cloudinary
+  const response = await cloudinary.v2.uploader.upload(req.file.path);
+
+  console.log(response)
+
+  // update avatar url and avatarPublicId 
+  property.avatar = response.secure_url;
+  property.avatarPublicId = response.public_id;
+
+  // remove the locally stored image now
+  await fs.unlink(req.file.path);
+}
 
   const updatedProperty = await Property.findOneAndUpdate(
     { _id: propertyId },
-    req.body,
+    property,
     {
       runValidators: true,
     }
   );
   res.json(updatedProperty);
 };
+
 
 const showStatsController = async(req, res) => {
   let stats = await Property.aggregate([

@@ -84,8 +84,6 @@ const updateUserController = async (req, res) => {
         userData.lastName = lastName;
         userData.location = location;
 
-        // console.log(req.file)
-
         // Upload image to Cloudinary and delete the local file
         if (req.file) {
 

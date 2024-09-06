@@ -31,6 +31,8 @@ const propertySchema = new mongoose.Schema(
       ref: 'User',
       required: [true, 'Please provide user']
     },
+    avatar: String,
+    avatarPublicId: String,
   },
   { timestamps: true }
 )
