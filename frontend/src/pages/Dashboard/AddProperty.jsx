@@ -71,6 +71,7 @@ const AddProperty = () => {
           {/* owner */}
           <FormRow
             type='text'
+            labelText="Owner's Contact Info"
             name='owner'
             value={owner}
             changeHandler={changeHandler}

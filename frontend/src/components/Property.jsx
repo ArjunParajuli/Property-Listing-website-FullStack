@@ -30,7 +30,7 @@ const Property = ({
                 <img src={avatar ? avatar : propertyImg} alt={owner} className='property-image' />
             </div>
             <div className='info'>
-                <h5>{owner}</h5>
+                <h5> <span className='text-red-800'>Contact Info:</span> <br></br> <span className='text-lg'>{owner}</span></h5>
                 <p>${price}</p>
             </div>
             <div className='content'>

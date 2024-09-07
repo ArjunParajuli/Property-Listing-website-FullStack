@@ -187,6 +187,17 @@ export const AppProvider = ({ children }) => {
 
       dispatch({type: UPDATE_USER_SUCCESS, payload: {user, userLocation}})
       // storeInLocalStorage(user, jwtToken, location);
+      toast.success('Profile Updated Successfully', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
     } catch (err) {
       dispatch({type: UPDATE_USER_ERROR, payload: {msg: err.response.data.msg}})
       console.log(err);
@@ -311,6 +322,17 @@ export const AppProvider = ({ children }) => {
         type: EDIT_PROPERTY_ERROR,
         payload: { msg: error?.response?.data?.msg },
       });
+      toast.error(error?.response?.data?.msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
     }
     getAllProperties()
     clearAlert();
@@ -335,6 +357,17 @@ export const AppProvider = ({ children }) => {
 
       getAllProperties() // get call to get the updated jobs from the db
     }catch(err){
+      toast.error(err?.response?.data?.msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
       logoutUser()
     }
   };

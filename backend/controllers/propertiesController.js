@@ -10,7 +10,6 @@ import {promises as fs} from 'fs';
 
 const createPropertyController = async (req, res) => {
   const { owner, propertyLocation } = req.body;
-  console.log(req.body);
   if (!owner || !propertyLocation)
     throw new BadRequestError("Enter both Owner and Property Location!");
   req.body.createdBy = req.user.userId;
@@ -46,8 +45,8 @@ const deletePropertyController = async (req, res) => {
 
 const getAllPropertiesController = async (req, res) => {
   const { status, propertyType, search, sort } = req.query;
-  let queryObj = { createdBy: req.user.userId }; 
-  
+  // let queryObj = { createdBy: req.user.userId }; 
+  let queryObj;
   // console.log(req.query)
 
   // if status is pending/meeting/declined then add it in the query 
@@ -115,7 +114,6 @@ const updatePropertyController = async (req, res) => {
   property.status = status;
 
 if(req.file){
-  console.log(req.file)
 
   // delete previous image from cloudinary
   if(property.avatarPublicId){
@@ -124,8 +122,6 @@ if(req.file){
 
   // upload new image to cloudinary
   const response = await cloudinary.v2.uploader.upload(req.file.path);
-
-  console.log(response)
 
   // update avatar url and avatarPublicId 
   property.avatar = response.secure_url;

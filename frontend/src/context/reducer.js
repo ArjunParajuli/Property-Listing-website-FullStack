@@ -129,9 +129,9 @@ export const reducer = (state, action) => {
         // token: action.payload.jwtToken,
         userLocation: action.payload.userLocation,
         propertyLocation: action.payload.userLocation,
-        showAlert: true,
-        alertType: "success",
-        alertText: "User Profile Updated!",
+        // showAlert: true,
+        // alertType: "success",
+        // alertText: "User Profile Updated!",
       };
     case UPDATE_USER_ERROR:
       return {
