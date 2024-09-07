@@ -12,8 +12,8 @@ import { EMPTY_FIELDS } from '../context/action';
 const Register = () => {
   const [userData, setUserData] = useState({
     name: '',
-    email: '',
-    password: '',
+    email: 'test@gmail.com',
+    password: 'Test@123',
     isLogIn: true,
   });
 
@@ -53,6 +53,7 @@ const Register = () => {
     })
   }
 
+
 // if user registers/logs in, go to dashboard
   useEffect(()=>{
     if(user)
@@ -72,8 +73,8 @@ const Register = () => {
         { showAlert && <Alert /> }
   
         { !userData.isLogIn && <FormRow type='text' name='name' value={userData.name} changeHandler={changeHandler} /> }
-        <FormRow type='email' name='email' value={userData.email} changeHandler={changeHandler} />
-        <FormRow type='password' name='password' value={userData.password} changeHandler={changeHandler} />
+        <FormRow type='email' name='email' defaultValue='test@gmail.com' value={userData.email} changeHandler={changeHandler} />
+        <FormRow type='password' name='password' defaultValue='Test@123' value={userData.password} changeHandler={changeHandler} />
   
         <div className='mb-4'>
           <SubmitBtn />

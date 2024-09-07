@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 4000
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, '../public')));
+app.use(express.static(path.resolve(__dirname, './public')));
 
 // middlewares
 import pageNotFound from './middlewares/pageNotFound.js';
@@ -44,6 +44,11 @@ app.use("/api/v1/properties", propertiesRoutes);
 app.get('/', (req, res) => {
     res.json({message: "Data"});
   });
+
+  
+  app.use("*", (req, res)=>{
+    res.sendFile(path.resolve(__dirname, './public', 'index.html'))
+})
 
 // if above routes don't match then this works
 app.use(pageNotFound)

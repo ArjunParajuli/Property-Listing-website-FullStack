@@ -11,7 +11,7 @@ const FormRow = ({ type, name, labelText, value, changeHandler }) => {
         id={name}
         name={name}
         className='p-2 border border-gray-300 rounded'
-        value={value}  // Ensure value prop is properly passed
+        value={value}  
         onChange={changeHandler}
       />
     </div>
