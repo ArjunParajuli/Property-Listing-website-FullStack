@@ -4,6 +4,7 @@ import express from 'express';
 
 import authRoutes from './routes/authRoutes.js';
 import propertiesRoutes from "./routes/propertiesRoutes.js"
+import chatbotRoutes from './routes/chatbotRoutes.js';
 
 // public
 import { dirname } from 'path';
@@ -15,7 +16,7 @@ dotenv.config({ path: './.env' })
 import connectDB from './db/connectDB.js';
 
 const app = express();
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 0
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, './public')));
@@ -40,6 +41,7 @@ app.use(cookieParser());
 // middleware to mount the auth & properties API routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/properties", propertiesRoutes);
+app.use("/api/v1/chatbot", chatbotRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: "Data"});

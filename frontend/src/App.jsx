@@ -8,6 +8,7 @@ import Error from "./pages/Error";
 import Profile from "./pages/Dashboard/Profile";
 import SharedLayout from "./pages/Dashboard/SharedLayout";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Error />} />
       </Routes>
+      <Chatbot />
     </Router>
   );
 }
