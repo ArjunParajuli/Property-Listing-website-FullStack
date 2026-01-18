@@ -46,9 +46,8 @@ const deletePropertyController = async (req, res) => {
 const getAllPropertiesController = async (req, res) => {
   const { status, propertyType, search, sort } = req.query;
   // let queryObj = { createdBy: req.user.userId }; 
-  let queryObj;
-  // console.log(req.query)
-
+  let queryObj={};
+  
   // if status is pending/meeting/declined then add it in the query 
   if(status && status !== 'all'){
     queryObj.status = status
@@ -57,15 +56,18 @@ const getAllPropertiesController = async (req, res) => {
   if(propertyType && propertyType !== 'all'){
     queryObj.propertyType = propertyType
   }
-
+  
   // search location entered by user, use regex for case sensitivity
   // case-insensitive search filter for a property named propertyLocation.
+  //console.log("In", queryObj)
   if(search){
     queryObj.propertyLocation = { $regex: search, $options: 'i' }
   }
-
+  
+  
   let result = Property.find(queryObj);
 
+  
   // sort functionality
   if (sort === 'latest') {
     result = result.sort('-createdAt'); // Sorts the results by the createdAt field in descending order.
@@ -88,12 +90,17 @@ const skip = (page-1)*10;
 
 result.skip(skip).limit(limit)
 
+
   // we're building the query object first and chaining modifications before executing it. 
   // await keyword will execute the query immediately, so we're using it after all modifications are chained
   const properties = await result;
 
+
   const totalProperties = await Property.countDocuments(queryObj);
+
   const numOfPages = Math.ceil(totalProperties/limit)
+
+    //console.log("Before Send res", { totalProperties, numOfPages})
 
   res.status(StatusCodes.OK).json({ properties, totalProperties, numOfPages });
 };
@@ -138,6 +145,7 @@ if(req.file){
       runValidators: true,
     }
   );
+
   res.json(updatedProperty);
 };
 

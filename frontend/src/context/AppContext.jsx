@@ -33,6 +33,7 @@ import {
   CHANGE_PAGE,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
+  SEARCH_FILTER_CHANGE
 } from "./action";
 import axios from "axios";
 
@@ -392,7 +393,7 @@ export const AppProvider = ({ children }) => {
 // search input filter fields 
   const searchChangeHandler = ({name, value}) =>{
     console.log(name, value)
-    dispatch({type: 'SEARCH_FILTER_CHANGE', payload:{ name, value} })
+    dispatch({type: SEARCH_FILTER_CHANGE, payload:{ name, value} })
   }
 
 const resetFilters = () =>{
