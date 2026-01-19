@@ -6,20 +6,13 @@ import authRoutes from './routes/authRoutes.js';
 import propertiesRoutes from "./routes/propertiesRoutes.js"
 import chatbotRoutes from './routes/chatbotRoutes.js';
 
-// public
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import path from 'path';
-
 
 dotenv.config({ path: './.env' })
 import connectDB from './db/connectDB.js';
 
 const app = express();
-const PORT = process.env.PORT || 0
+const PORT = process.env.PORT || 5000;
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, './public')));
 
 // middlewares
 import pageNotFound from './middlewares/pageNotFound.js';
@@ -58,12 +51,13 @@ app.use(pageNotFound)
 app.use(errorHandlerMiddleWare) // global catch 
 
 
+
 // start server and connect to db
 const startAndConnect = async() =>{
     try{
         await connectDB(process.env.DB_URL)
-        app.listen(PORT, ()=>{
-            console.log("App Listening on port: ", PORT)
+        app.listen(PORT, '0.0.0.0', ()=>{
+            console.log(`Backend API listening on all interfaces at port ${PORT}`)
         })
     }catch(err){
         console.log("Error occured ", err)
